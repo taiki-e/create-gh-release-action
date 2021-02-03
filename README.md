@@ -53,10 +53,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: taiki-e/create-gh-release-action@v1
         with:
-          # Format of title (optional) (variables `$tag`, `$version`, and any string, default is `$tag`)
-          title: $version
           # Path to changelog (optional).
           changelog: CHANGELOG.md
+          # Format of title (optional) (variables `$tag`, `$version`, and any string, default is `$tag`)
+          title: $version
         env:
           # (required) GitHub token for creating GitHub Releases, e.g., `secrets.GITHUB_TOKEN`
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -87,8 +87,8 @@ jobs:
 
 | Input     | Required | Description                                                              | Type   | Default        |
 |-----------|:--------:|--------------------------------------------------------------------------|--------|:--------------:|
-| title     | false    | Format of title (variables `$tag`, `$version`, and any string)           | String | `$tag`         |
 | changelog | false    | Path to changelog                                                        | String |                |
+| title     | false    | Format of title (variables `$tag`, `$version`, and any string)           | String | `$tag`         |
 
 See [action.yml](action.yml) for more details.
 
