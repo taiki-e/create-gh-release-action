@@ -1,0 +1,15 @@
+name: Create GitHub Releases based on changelog
+description: GitHub Action for creating GitHub Releases based on changelog
+
+inputs:
+  title:
+    description: Format of title (variables $tag, $version, and any string)
+    required: false
+    default: "$tag"
+  changelog:
+    description: Path to changelog
+    required: false
+
+runs:
+  using: node12
+  main: main.js
