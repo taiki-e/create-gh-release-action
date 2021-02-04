@@ -29,10 +29,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: taiki-e/create-gh-release-action@v1
         with:
-          # Path to changelog (optional).
+          # (optional) Path to changelog.
           changelog: CHANGELOG.md
         env:
-          # (required) GitHub token for creating GitHub Releases, e.g., `secrets.GITHUB_TOKEN`
+          # (required) GitHub token for creating GitHub Releases.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -53,12 +53,14 @@ jobs:
       - uses: actions/checkout@v2
       - uses: taiki-e/create-gh-release-action@v1
         with:
-          # Path to changelog (optional).
+          # (optional)
           changelog: CHANGELOG.md
-          # Format of title (optional) (variables `$tag`, `$version`, and any string, default is `$tag`)
+          # (optional) Format of title.
+          # [default value: $tag]
+          # [possible values: variables $tag, $version, and any string]
           title: $version
         env:
-          # (required) GitHub token for creating GitHub Releases, e.g., `secrets.GITHUB_TOKEN`
+          # (required)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -79,21 +81,26 @@ jobs:
       - uses: actions/checkout@v2
       - uses: taiki-e/create-gh-release-action@v1
         env:
-          # (required) GitHub token for creating GitHub Releases, e.g., `secrets.GITHUB_TOKEN`
+          # (required)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Configuration
 
-| Input     | Required | Description                                                              | Type   | Default        |
-|-----------|:--------:|--------------------------------------------------------------------------|--------|:--------------:|
-| changelog | false    | Path to changelog                                                        | String |                |
-| title     | false    | Format of title (variables `$tag`, `$version`, and any string)           | String | `$tag`         |
+| Input     | Required | Description                                                    | Type   | Default |
+|-----------|:--------:|----------------------------------------------------------------|--------|---------|
+| changelog | false    | Path to changelog                                              | String |         |
+| title     | false    | Format of title (variables `$tag`, `$version`, and any string) | String | `$tag`  |
 
 See [action.yml](action.yml) for more details.
 
+## Related Projects
+
+- [upload-rust-binary-action]: GitHub Action for building and uploading Rust binary to GitHub Releases.
+
 [parse-changelog]: https://github.com/taiki-e/parse-changelog
 [semver]: https://semver.org
+[upload-rust-binary-action]: https://github.com/taiki-e/upload-rust-binary-action
 
 ## License
 
