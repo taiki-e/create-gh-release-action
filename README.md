@@ -97,6 +97,7 @@ See [action.yml](action.yml) for more details.
 ## Related Projects
 
 - [upload-rust-binary-action]: GitHub Action for building and uploading Rust binary to GitHub Releases.
+- [parse-changelog]: A simple changelog parser, written in Rust.
 
 [parse-changelog]: https://github.com/taiki-e/parse-changelog
 [semver]: https://semver.org
