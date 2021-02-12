@@ -11,7 +11,7 @@ function error {
   fi
 }
 
-title="${INPUT_TITLE:-}"
+title="${INPUT_TITLE:?}"
 changelog="${INPUT_CHANGELOG:-}"
 
 if [[ -z "${GITHUB_TOKEN:-}" ]]; then
