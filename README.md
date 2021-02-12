@@ -20,7 +20,7 @@ name: Release
 on:
   push:
     tags:
-      - v*
+      - v[0-9]+.*
 
 jobs:
   create-release:
@@ -44,7 +44,7 @@ name: Release
 on:
   push:
     tags:
-      - v*
+      - v[0-9]+.*
 
 jobs:
   create-release:
@@ -72,7 +72,7 @@ name: Release
 on:
   push:
     tags:
-      - v*
+      - v[0-9]+.*
 
 jobs:
   create-release:
