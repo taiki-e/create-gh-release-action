@@ -85,6 +85,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+### Other examples
+
+- [cargo-hack](https://github.com/taiki-e/cargo-hack/blob/5d629a8e4b869215acbd55250f078eb211d2337b/.github/workflows/release.yml#L38-L66)
+- [pin-project](https://github.com/taiki-e/pin-project/blob/17368bcf3a07d29440d4aa95a7b4384ede9e54f5/.github/workflows/release.yml#L19-L36)
+
 ## Configuration
 
 | Input     | Required | Description                                                    | Type   | Default |
