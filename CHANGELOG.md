@@ -12,7 +12,7 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [1.0.2] - 2021-02-28
 
-- Support macOS and Windows.
+- [Fix error on macOS and Windows.](https://github.com/taiki-e/create-gh-release-action/pull/2)
 
 - Documentation improvements.
 
