@@ -33,8 +33,23 @@ title="${title/\$tag/${tag}}"
 title="${title/\$version/${version}}"
 
 if [[ -n "${changelog}" ]]; then
+    case "${OSTYPE}" in
+        linux*)
+            target="x86_64-unknown-linux-musl"
+            ;;
+        darwin*)
+            target="x86_64-apple-darwin"
+            ;;
+        cygwin* | msys*)
+            target="x86_64-pc-windows-msvc"
+            ;;
+        *)
+            error "unrecognized OSTYPE: ${OSTYPE}"
+            exit 1
+            ;;
+    esac
     # https://github.com/taiki-e/parse-changelog
-    curl -LsSf https://github.com/taiki-e/parse-changelog/releases/latest/download/parse-changelog-x86_64-unknown-linux-gnu.tar.gz | tar xzf -
+    curl -LsSf https://github.com/taiki-e/parse-changelog/releases/latest/download/parse-changelog-"${target}".tar.gz | tar xzf -
     notes=$(./parse-changelog "${changelog}" "${version}")
     rm -f ./parse-changelog
 fi
