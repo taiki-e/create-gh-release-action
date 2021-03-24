@@ -1,8 +1,8 @@
 # create-gh-release-action
 
-GitHub Action for creating GitHub Releases based on changelog.
+[![build status](https://img.shields.io/github/workflow/status/taiki-e/create-gh-release-action/CI/main?style=flat-square&logo=github)](https://github.com/taiki-e/create-gh-release-action/actions)
 
-<!-- TOC depthfrom:2 -->
+GitHub Action for creating GitHub Releases based on changelog.
 
 - [Usage](#usage)
   - [Inputs](#inputs)
@@ -12,8 +12,6 @@ GitHub Action for creating GitHub Releases based on changelog.
   - [Other examples](#other-examples)
 - [Related Projects](#related-projects)
 - [License](#license)
-
-<!-- /TOC -->
 
 ## Usage
 
