@@ -18,7 +18,7 @@ if [[ -z "${GITHUB_TOKEN:-}" ]]; then
 fi
 
 if [[ "${GITHUB_REF:?}" != "refs/tags/"* ]]; then
-    error "GITHUB_REF should start with 'refs/tags/'"
+    error "GITHUB_REF should start with 'refs/tags/': ${GITHUB_REF}"
     exit 1
 fi
 tag="${GITHUB_REF#refs/tags/}"
