@@ -7,6 +7,8 @@ error() {
     echo "::error::$*"
 }
 
+parse_changelog_tag="v0.3.0"
+
 title="${INPUT_TITLE:?}"
 changelog="${INPUT_CHANGELOG:-}"
 
@@ -49,7 +51,8 @@ if [[ -n "${changelog}" ]]; then
             ;;
     esac
     # https://github.com/taiki-e/parse-changelog
-    curl -LsSf https://github.com/taiki-e/parse-changelog/releases/latest/download/parse-changelog-"${target}".tar.gz | tar xzf -
+    curl -LsSf "https://github.com/taiki-e/parse-changelog/releases/download/${parse_changelog_tag}/parse-changelog-${target}.tar.gz" \
+        | tar xzf -
     notes=$(./parse-changelog "${changelog}" "${version}")
     rm -f ./parse-changelog
 fi
