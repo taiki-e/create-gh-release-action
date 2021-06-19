@@ -9,6 +9,10 @@ inputs:
     description: Format of title (variables `$tag`, `$version`, and any string)
     required: false
     default: '$tag'
+  draft:
+    description: Create a draft release ('true' or 'false')
+    required: false
+    default: 'false'
 
 runs:
   using: node12

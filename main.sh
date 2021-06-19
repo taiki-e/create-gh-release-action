@@ -11,6 +11,7 @@ parse_changelog_tag="v0.3.0"
 
 title="${INPUT_TITLE:?}"
 changelog="${INPUT_CHANGELOG:-}"
+draft="${INPUT_DRAFT:-}"
 
 if [[ -z "${GITHUB_TOKEN:-}" ]]; then
     error "GITHUB_TOKEN not set"
@@ -62,5 +63,12 @@ if gh release view "${tag}" &>/dev/null; then
     # https://cli.github.com/manual/gh_release_delete
     gh release delete "${tag}" -y
 fi
+
+gh_options=""
+
+if [[ "$draft" == "true" ]]; then
+    gh_options="--draft"
+fi
+
 # https://cli.github.com/manual/gh_release_create
-gh release create "${tag}" ${prerelease:-} --title "${title}" --notes "${notes:-}"
+gh release create ${gh_options} "${tag}" ${prerelease:-} --title "${title}" --notes "${notes:-}"
