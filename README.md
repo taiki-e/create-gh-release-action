@@ -38,6 +38,7 @@ Currently, changelog format and supported tag names have the following rule:
 |-----------|:--------:|----------------------------------------------------------------|--------|---------|
 | changelog | false    | Path to changelog                                              | String |         |
 | title     | false    | Format of title (variables `$tag`, `$version`, and any string) | String | `$tag`  |
+| draft     | false    | Create a draft release ('true' or 'false')                     | String | `false` |
 
 ### Example workflow: Basic usage
 
@@ -58,6 +59,8 @@ jobs:
         with:
           # (optional) Path to changelog.
           changelog: CHANGELOG.md
+          # (optional) Create a draft release.
+          draft: true
         env:
           # (required) GitHub token for creating GitHub Releases.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
