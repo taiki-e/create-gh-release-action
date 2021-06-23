@@ -10,7 +10,7 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
-## [1.1.0] - 2021-06-24
+## [1.1.0] - 2021-06-23
 
 - [Add `draft` input option to create GitHub release as draft.](https://github.com/taiki-e/create-gh-release-action/pull/4)
 
