@@ -35,6 +35,17 @@ version="${tag#v}"
 title="${title/\$tag/${tag}}"
 title="${title/\$version/${version}}"
 
+case "${draft}" in
+    true)
+        draft_option="--draft"
+        ;;
+    false) ;;
+    *)
+        error "'draft' input option must be 'true' or 'false': ${draft}"
+        exit 1
+        ;;
+esac
+
 if [[ -n "${changelog}" ]]; then
     case "${OSTYPE}" in
         linux*)
@@ -64,11 +75,5 @@ if gh release view "${tag}" &>/dev/null; then
     gh release delete "${tag}" -y
 fi
 
-gh_options=""
-
-if [[ "$draft" == "true" ]]; then
-    gh_options="--draft"
-fi
-
 # https://cli.github.com/manual/gh_release_create
-gh release create ${gh_options} "${tag}" ${prerelease:-} --title "${title}" --notes "${notes:-}"
+gh release create ${draft_option:-} "${tag}" ${prerelease:-} --title "${title}" --notes "${notes:-}"
