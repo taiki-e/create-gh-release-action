@@ -3,15 +3,16 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+parse_changelog_tag="v0.3.0"
+
 error() {
     echo "::error::$*"
 }
 
-parse_changelog_tag="v0.3.0"
-
 title="${INPUT_TITLE:?}"
 changelog="${INPUT_CHANGELOG:-}"
 draft="${INPUT_DRAFT:-}"
+branch="${INPUT_BRANCH:-}"
 
 if [[ -z "${GITHUB_TOKEN:-}" ]]; then
     error "GITHUB_TOKEN not set"
@@ -19,13 +20,14 @@ if [[ -z "${GITHUB_TOKEN:-}" ]]; then
 fi
 
 if [[ "${GITHUB_REF:?}" != "refs/tags/"* ]]; then
-    error "GITHUB_REF should start with 'refs/tags/': ${GITHUB_REF}"
+    error "this action can only be used on 'push' event for 'tags' (GITHUB_REF should start with 'refs/tags/': '${GITHUB_REF}')"
     exit 1
 fi
 tag="${GITHUB_REF#refs/tags/}"
 
+# TODO: Support custom prefix of tags https://github.com/taiki-e/create-gh-release-action/issues/1
 if [[ ! "${tag}" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z_0-9\.-]+)?(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
-    error "invalid tag format: ${tag}"
+    error "invalid tag format: '${tag}'"
     exit 1
 fi
 if [[ "${tag}" =~ ^v?[0-9\.]+-[a-zA-Z_0-9\.-]+(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
@@ -41,10 +43,19 @@ case "${draft}" in
         ;;
     false) ;;
     *)
-        error "'draft' input option must be 'true' or 'false': ${draft}"
+        error "'draft' input option must be 'true' or 'false': '${draft}'"
         exit 1
         ;;
 esac
+
+if [[ -n "${branch}" ]]; then
+    git fetch &>/dev/null
+    if ! git branch -r --contains | grep -E "(^|\s)origin/(${branch})$" &>/dev/null; then
+        git branch -r --contains
+        error "Creating of release is only allowed on commits contained in branches that match the specified pattern: '${branch}'"
+        exit 1
+    fi
+fi
 
 if [[ -n "${changelog}" ]]; then
     case "${OSTYPE}" in

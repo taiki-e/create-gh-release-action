@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- [Add `branch` input option to reject releases from commits not contained in specified branches](https://github.com/taiki-e/create-gh-release-action/pull/7)
+
 ## [1.1.0] - 2021-06-23
 
 - [Add `draft` input option to create GitHub release as draft.](https://github.com/taiki-e/create-gh-release-action/pull/4)
