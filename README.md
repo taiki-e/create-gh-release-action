@@ -10,7 +10,7 @@ GitHub Action for creating GitHub Releases based on changelog.
   - [Example workflow: Create a draft release](#example-workflow-create-a-draft-release)
   - [Example workflow: Custom title](#example-workflow-custom-title)
   - [Example workflow: No changelog](#example-workflow-no-changelog)
-  - [Example workflow: Reject releases from outside the main branch](#example-workflow-reject-releases-from-outside-the-main-branch)
+  - [Example workflow: Reject releases from outside of main branch](#example-workflow-reject-releases-from-outside-of-main-branch)
   - [Other examples](#other-examples)
 - [Related Projects](#related-projects)
 - [License](#license)
@@ -151,7 +151,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-### Example workflow: Reject releases from outside the main branch
+### Example workflow: Reject releases from outside of main branch
 
 You can reject releases from commits not contained in branches that match the specified pattern by using `branch` option.
 
