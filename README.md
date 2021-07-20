@@ -7,8 +7,10 @@ GitHub Action for creating GitHub Releases based on changelog.
 - [Usage](#usage)
   - [Inputs](#inputs)
   - [Example workflow: Basic usage](#example-workflow-basic-usage)
+  - [Example workflow: Create a draft release](#example-workflow-create-a-draft-release)
   - [Example workflow: Custom title](#example-workflow-custom-title)
   - [Example workflow: No changelog](#example-workflow-no-changelog)
+  - [Example workflow: Reject releases from outside the main branch](#example-workflow-reject-releases-from-outside-the-main-branch)
   - [Other examples](#other-examples)
 - [Related Projects](#related-projects)
 - [License](#license)
@@ -34,11 +36,12 @@ Currently, changelog format and supported tag names have the following rule:
 
 ### Inputs
 
-| Name     | Required | Description                                                    | Type   | Default |
-|-----------|:--------:|----------------------------------------------------------------|--------|---------|
-| changelog | false    | Path to changelog                                              | String |         |
-| title     | false    | Format of title (variables `$tag`, `$version`, and any string) | String | `$tag`  |
-| draft     | false    | Create a draft release ('true' or 'false')                     | String | `false` |
+| Name      | Required | Description                                                    | Type    | Default |
+|-----------|:--------:|----------------------------------------------------------------|---------|---------|
+| changelog | false    | Path to changelog                                              | String  |         |
+| title     | false    | Format of title (variables `$tag`, `$version`, and any string) | String  | `$tag`  |
+| draft     | false    | Create a draft release (`true` or `false`)                     | Boolean | `false` |
+| branch    | false    | Reject releases from commits not contained in branches that match the specified pattern (regular expression) | String  |         |
 
 ### Example workflow: Basic usage
 
@@ -57,12 +60,37 @@ jobs:
       - uses: actions/checkout@v2
       - uses: taiki-e/create-gh-release-action@v1
         with:
-          # (optional) Path to changelog.
+          # (Optional) Path to changelog.
           changelog: CHANGELOG.md
-          # (optional) Create a draft release.
+        env:
+          # (Required) GitHub token for creating GitHub Releases.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+### Example workflow: Create a draft release
+
+```yaml
+name: Release
+
+on:
+  push:
+    tags:
+      - v[0-9]+.*
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: taiki-e/create-gh-release-action@v1
+        with:
+          # (Optional) Path to changelog.
+          changelog: CHANGELOG.md
+          # (Optional) Create a draft release.
+          # [default value: false]
           draft: true
         env:
-          # (required) GitHub token for creating GitHub Releases.
+          # (Required) GitHub token for creating GitHub Releases.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -87,14 +115,14 @@ jobs:
       - uses: actions/checkout@v2
       - uses: taiki-e/create-gh-release-action@v1
         with:
-          # (optional)
+          # (Optional)
           changelog: CHANGELOG.md
-          # (optional) Format of title.
+          # (Optional) Format of title.
           # [default value: $tag]
           # [possible values: variables $tag, $version, and any string]
           title: $version
         env:
-          # (required)
+          # (Required) GitHub token for creating GitHub Releases.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -119,7 +147,36 @@ jobs:
       - uses: actions/checkout@v2
       - uses: taiki-e/create-gh-release-action@v1
         env:
-          # (required)
+          # (Required) GitHub token for creating GitHub Releases.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+### Example workflow: Reject releases from outside the main branch
+
+You can reject releases from commits not contained in branches that match the specified pattern by using `branch` option.
+
+```yaml
+name: Release
+
+on:
+  push:
+    tags:
+      - v[0-9]+.*
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: taiki-e/create-gh-release-action@v1
+        with:
+          # (Optional) Path to changelog.
+          changelog: CHANGELOG.md
+          # (Optional) Reject releases from commits not contained in branches
+          # that match the specified pattern (regular expression)
+          branch: main
+        env:
+          # (Required) GitHub token for creating GitHub Releases.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
