@@ -3,7 +3,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-parse_changelog_tag="v0.3.0"
+parse_changelog_tag="v0.4.1"
 
 error() {
     echo "::error::$*"

@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Update `parse-changelog` to 0.4.1. This includes a bug fix and performance improvements.
+
 ## [1.2.0] - 2021-07-20
 
 - [Add `branch` input option to reject releases from commits not contained in specified branches](https://github.com/taiki-e/create-gh-release-action/pull/7)
