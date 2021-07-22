@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [1.2.1] - 2021-07-22
+
 - Update `parse-changelog` to 0.4.1. This includes a bug fix and performance improvements.
 
 ## [1.2.0] - 2021-07-20
@@ -38,7 +40,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 Initial release
 
-[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/taiki-e/create-gh-release-action/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/taiki-e/create-gh-release-action/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/taiki-e/create-gh-release-action/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/taiki-e/create-gh-release-action/compare/v1.0.2...v1.0.3
