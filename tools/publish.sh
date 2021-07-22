@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Automate the local side release step.
+#
+# Usage:
+#    ./tools/publish.sh <version>
+#
+# Note:
+# - This script requires parse-changelog <https://github.com/taiki-e/parse-changelog>
+
 set -euo pipefail
 IFS=$'\n\t'
 
