@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Automate the local side release step.
+# Publish a new release.
 #
 # Usage:
 #    ./tools/publish.sh <version>
@@ -23,12 +23,12 @@ git diff --exit-code --staged
 # Parse arguments.
 version="${1:?}"
 tag="v${version}"
-if [[ ! "${version}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z_0-9\.-]+)?(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
+if [[ ! "${version}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z\.-]+)?(\+[0-9A-Za-z\.-]+)?$ ]]; then
     error "invalid version format: '${version}'"
     exit 1
 fi
 if [[ "${2:-}" == "--dry-run" ]]; then
-    dryrun="--dry-run"
+    dry_run="--dry-run"
     shift
 fi
 if [[ -n "${2:-}" ]]; then
@@ -52,8 +52,8 @@ if git --no-pager tag | grep "${tag}" &>/dev/null; then
     exit 1
 fi
 
-# Create and push tag.
-if [[ -n "${dryrun:-}" ]]; then
+# Exit if dry run.
+if [[ -n "${dry_run:-}" ]]; then
     echo "warning: skip creating a new tag '${tag}' due to dry run"
     exit 0
 fi
@@ -67,7 +67,7 @@ git checkout v1
 git merge main
 git push origin refs/heads/v1
 
-if git --no-pager tag | grep "v1" &>/dev/null; then
+if git --no-pager tag | grep -E "^v1$" &>/dev/null; then
     git tag -d v1
     git push --delete origin refs/tags/v1
 fi
