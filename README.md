@@ -188,7 +188,7 @@ jobs:
 ## Related Projects
 
 - [upload-rust-binary-action]: GitHub Action for building and uploading Rust binary to GitHub Releases.
-- [parse-changelog]: A simple changelog parser, written in Rust. Used in this action.
+- [parse-changelog]: Simple changelog parser, written in Rust. Used in this action.
 
 [keepachangelog]: https://keepachangelog.com/en/1.0.0
 [parse-changelog]: https://github.com/taiki-e/parse-changelog
