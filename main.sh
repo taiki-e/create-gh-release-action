@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -euo pipefail
 IFS=$'\n\t'
 
@@ -8,6 +7,11 @@ parse_changelog_tag="v0.4.5"
 error() {
     echo "::error::$*"
 }
+
+if [[ $# -gt 0 ]]; then
+    error "invalid argument: '$1'"
+    exit 1
+fi
 
 title="${INPUT_TITLE:?}"
 changelog="${INPUT_CHANGELOG:-}"
@@ -38,14 +42,9 @@ title="${title/\$tag/${tag}}"
 title="${title/\$version/${version}}"
 
 case "${draft}" in
-    true)
-        draft_option="--draft"
-        ;;
+    true) draft_option="--draft" ;;
     false) ;;
-    *)
-        error "'draft' input option must be 'true' or 'false': '${draft}'"
-        exit 1
-        ;;
+    *) error "'draft' input option must be 'true' or 'false': '${draft}'" && exit 1 ;;
 esac
 
 if [[ -n "${branch}" ]]; then
@@ -59,22 +58,13 @@ fi
 
 if [[ -n "${changelog}" ]]; then
     case "${OSTYPE}" in
-        linux*)
-            target="x86_64-unknown-linux-musl"
-            ;;
-        darwin*)
-            target="x86_64-apple-darwin"
-            ;;
-        cygwin* | msys*)
-            target="x86_64-pc-windows-msvc"
-            ;;
-        *)
-            error "unrecognized OSTYPE: ${OSTYPE}"
-            exit 1
-            ;;
+        linux*) target="x86_64-unknown-linux-musl" ;;
+        darwin*) target="x86_64-apple-darwin" ;;
+        cygwin* | msys*) target="x86_64-pc-windows-msvc" ;;
+        *) error "unrecognized OSTYPE: ${OSTYPE}" && exit 1 ;;
     esac
     # https://github.com/taiki-e/parse-changelog
-    curl -LsSf "https://github.com/taiki-e/parse-changelog/releases/download/${parse_changelog_tag}/parse-changelog-${target}.tar.gz" \
+    curl --proto '=https' --tlsv1.2 -fsSL --retry 10 "https://github.com/taiki-e/parse-changelog/releases/download/${parse_changelog_tag}/parse-changelog-${target}.tar.gz" \
         | tar xzf -
     notes=$(./parse-changelog "${changelog}" "${version}")
     rm -f ./parse-changelog
