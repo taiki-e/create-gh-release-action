@@ -16,6 +16,12 @@ inputs:
   branch:
     description: Reject releases from commits not contained in branches that match the specified pattern (regular expression)
     required: false
+  prefix:
+    description: >
+      A prefix for the release tag, before the version number (for
+      example, 'my-crate-v0.1.2' has the prefix 'my-crate-').
+    required: false
+    default: ''
 
 runs:
   using: node12

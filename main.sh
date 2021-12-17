@@ -17,6 +17,11 @@ title="${INPUT_TITLE:?}"
 changelog="${INPUT_CHANGELOG:-}"
 draft="${INPUT_DRAFT:-}"
 branch="${INPUT_BRANCH:-}"
+prefix="${INPUT_PREFIX:-}"
+
+# `prefix` is used as part of a regular expression, but it's a literal string,
+# so escape any regex special characters first
+prefix="$(printf '%s' "$prefix" | sed 's/[]\\.$*{}|+?()[^-]/\\&/g')"
 
 if [[ -z "${GITHUB_TOKEN:-}" ]]; then
     error "GITHUB_TOKEN not set"
@@ -29,15 +34,14 @@ if [[ "${GITHUB_REF:?}" != "refs/tags/"* ]]; then
 fi
 tag="${GITHUB_REF#refs/tags/}"
 
-# TODO: Support custom prefix of tags https://github.com/taiki-e/create-gh-release-action/issues/1
-if [[ ! "${tag}" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z_0-9\.-]+)?(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
+if [[ ! "${tag}" =~ ^${prefix}v?[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z_0-9\.-]+)?(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
     error "invalid tag format: '${tag}'"
     exit 1
 fi
-if [[ "${tag}" =~ ^v?[0-9\.]+-[a-zA-Z_0-9\.-]+(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
+if [[ "${tag}" =~ ^${prefix}v?[0-9\.]+-[a-zA-Z_0-9\.-]+(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
     prerelease="--prerelease"
 fi
-version="${tag#v}"
+version="${tag#${prefix}v}"
 title="${title/\$tag/${tag}}"
 title="${title/\$version/${version}}"
 
