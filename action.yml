@@ -6,7 +6,7 @@ inputs:
     description: Path to changelog
     required: false
   title:
-    description: Format of title (variables `$tag`, `$version`, and any string)
+    description: Format of title (variables `$tag`, `$version`, `$prefix`, and any string)
     required: false
     default: '$tag'
   draft:
@@ -23,6 +23,10 @@ inputs:
 
       The prefix may not contain regular expression characters such as `\`, `.`,
       `(`, `)`, `[`, `]`, `{` and `}`.
+
+      If the prefix ends in a trailing '-', it will be stripped before
+      interpolating the prefix into the title, if `$prefix` appears in the title
+      format.
     required: false
     default: ''
 
