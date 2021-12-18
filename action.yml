@@ -20,6 +20,9 @@ inputs:
     description: >
       A prefix for the release tag, before the version number (for
       example, 'my-crate-v0.1.2' has the prefix 'my-crate-').
+
+      The prefix may not contain regular expression characters such as `\`, `.`,
+      `(`, `)`, `[`, `]`, `{` and `}`.
     required: false
     default: ''
 
