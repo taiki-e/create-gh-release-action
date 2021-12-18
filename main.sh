@@ -43,8 +43,13 @@ if [[ "${tag}" =~ ^${prefix}v?[0-9\.]+-[a-zA-Z_0-9\.-]+(\+[a-zA-Z_0-9\.-]+)?$ ]]
     prerelease="--prerelease"
 fi
 version="${tag#${prefix}v}"
+# if the prefix has a trailing slash, strip it so that the prefix can be used in
+# the title.
+prefix="${prefix#-}"
 title="${title/\$tag/${tag}}"
 title="${title/\$version/${version}}"
+title="${title/\$prefix/${prefix}}"
+
 
 case "${draft}" in
     true) draft_option="--draft" ;;
