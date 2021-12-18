@@ -19,10 +19,6 @@ draft="${INPUT_DRAFT:-}"
 branch="${INPUT_BRANCH:-}"
 prefix="${INPUT_PREFIX:-}"
 
-# `prefix` is used as part of a regular expression, but it's a literal string,
-# so escape any regex special characters first
-prefix="$(printf '%s' "$prefix" | sed 's/[]\\.$*{}|+?()[^-]/\\&/g')"
-
 if [[ -z "${GITHUB_TOKEN:-}" ]]; then
     error "GITHUB_TOKEN not set"
     exit 1
@@ -33,6 +29,11 @@ if [[ "${GITHUB_REF:?}" != "refs/tags/"* ]]; then
     exit 1
 fi
 tag="${GITHUB_REF#refs/tags/}"
+
+if [[ "${prefix}" =~ (\\|\$|\[|\]|\*|\||\{|\}|\+|\?|\^|\(|\)|\.)+ ]]; then
+    error "prefix '${prefix}' contained regular expression characters"
+    exit 1
+fi
 
 if [[ ! "${tag}" =~ ^${prefix}v?[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z_0-9\.-]+)?(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
     error "invalid tag format: '${tag}'"
