@@ -3,7 +3,7 @@ description: GitHub Action for creating GitHub Releases based on changelog
 
 inputs:
   changelog:
-    description: Path to changelog
+    description: Path to changelog (variables `$tag`, `$version`, `$prefix`, and any string)
     required: false
   title:
     description: Format of title (variables `$tag`, `$version`, `$prefix`, and any string)
@@ -18,15 +18,22 @@ inputs:
     required: false
   prefix:
     description: >
-      A prefix for the release tag, before the version number (for
-      example, 'my-crate-v0.1.2' has the prefix 'my-crate-').
+      An optional pattern that matches a prefix for the release tag, before the
+      version number.
 
-      The prefix may not contain regular expression characters such as `\`, `.`,
-      `(`, `)`, `[`, `]`, `{` and `}`.
+      If a prefix is provided, an optional '-' character is permitted (but not
+      required) between the prefix and the version number.   For example, the
+      tags 'my-crate-v0.1.2' and 'my-crate0.1.0' both have the prefix 'my-crate'.
 
-      If the prefix ends in a trailing '-', it will be stripped before
-      interpolating the prefix into the title, if `$prefix` appears in the title
-      format.
+      This is interpreted as a bash-style regular expression, so it may be used
+      to match multiple prefix strings. Therefore, literal characters that
+      are part of bash's regular expression syntax, such as `$`, `^`, `[`, `]`,
+      `{`, `}`, `(`, `)`, and `|` must be escaped if they occur in the prefix
+      pattern.
+
+      If a prefix pattern is provided, the portion of the tag that matched the
+      prefix can be interpolated into `title` and `changelog` via the `$prefix`
+      variable.
     required: false
     default: ''
 
