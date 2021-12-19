@@ -30,27 +30,32 @@ if [[ "${GITHUB_REF:?}" != "refs/tags/"* ]]; then
 fi
 tag="${GITHUB_REF#refs/tags/}"
 
-if [[ "${prefix}" =~ (\\|\$|\[|\]|\*|\||\{|\}|\+|\?|\^|\(|\)|\.)+ ]]; then
-    error "prefix '${prefix}' contained regular expression characters"
-    exit 1
-fi
 
-if [[ ! "${tag}" =~ ^${prefix}v?[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z_0-9\.-]+)?(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
+if [[ ! "${tag}" =~ ^${prefix}-?v?[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z_0-9\.-]+)?(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
     error "invalid tag format: '${tag}'"
     exit 1
 fi
-if [[ "${tag}" =~ ^${prefix}v?[0-9\.]+-[a-zA-Z_0-9\.-]+(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
+if [[ "${tag}" =~ ^${prefix}-?v?[0-9\.]+-[a-zA-Z_0-9\.-]+(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
     prerelease="--prerelease"
 fi
-version="${tag#${prefix}v}"
-# if the prefix has a trailing slash, strip it so that the prefix can be used in
-# the title.
-prefix="${prefix#-}"
+
+version="${tag}"
+# extract the portion of the tag matching the prefix pattern
+if [[ ! "${prefix}" = "" ]]; then
+    prefix=$(expr match "${tag}" "\(${prefix}\)")
+    version="${tag#${prefix}}"
+    version="${version#-}"
+fi
+version="${version#v}"
+
+# interpolate $tag, $version, and $prefix into the title string
 title="${title/\$tag/${tag}}"
 title="${title/\$version/${version}}"
 title="${title/\$prefix/${prefix}}"
-
-
+# interpolate $tag, $version, and $prefix into the changelog path
+changelog="${changelog/\$tag/${tag}}"
+changelog="${changelog/\$version/${version}}"
+changelog="${changelog/\$prefix/${prefix}}"
 case "${draft}" in
     true) draft_option="--draft" ;;
     false) ;;
