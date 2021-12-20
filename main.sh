@@ -41,7 +41,7 @@ fi
 version="${tag}"
 # extract the portion of the tag matching the prefix pattern
 if [[ ! "${prefix}" = "" ]]; then
-    prefix=$(expr match "${tag}" "\(${prefix}\)")
+    prefix=$(grep <<<"${tag}" -Eo "^${prefix}")
     version="${tag#${prefix}}"
     version="${version#-}"
 fi
