@@ -42,7 +42,7 @@ Currently, changelog format and supported tag names have the following rule:
 | title     | false    | Format of title (variables `$tag`, `$version`, `$prefix`, and any string)   | String  | `$tag`  |
 | draft     | false    | Create a draft release (`true` or `false`)                                  | Boolean | `false` |
 | branch    | false    | Reject releases from commits not contained in branches that match the specified pattern (regular expression) | String  |         |
-| prefix    | false    | An optional pattern that matches a prefix for the release tag, before the version number (see action.yml for more) | String |         |
+| prefix    | false    | An optional pattern that matches a prefix for the release tag, before the version number (see [action.yml](action.yml) for more) | String |         |
 
 ### Example workflow: Basic usage
 
