@@ -2,6 +2,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# https://github.com/taiki-e/parse-changelog/releases
 parse_changelog_tag="v0.4.5"
 
 error() {
