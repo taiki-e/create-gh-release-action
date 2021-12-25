@@ -60,7 +60,7 @@ echo "info: creating and pushing a new tag '${tag}'"
 set -x
 
 git push origin main
-git checkout v1
+git checkout -b v1 origin/v1
 git merge main
 git push origin refs/heads/v1
 
