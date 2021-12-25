@@ -73,3 +73,4 @@ git tag v1
 git tag "${tag}"
 git push origin --tags
 git checkout main
+git branch -d v1
