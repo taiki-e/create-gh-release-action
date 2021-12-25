@@ -9,6 +9,10 @@ error() {
     echo "::error::$*"
 }
 
+warn() {
+    echo "::warning::$*"
+}
+
 if [[ $# -gt 0 ]]; then
     error "invalid argument: '$1'"
     exit 1
@@ -31,11 +35,16 @@ if [[ "${GITHUB_REF:?}" != "refs/tags/"* ]]; then
 fi
 tag="${GITHUB_REF#refs/tags/}"
 
-if [[ ! "${tag}" =~ ^${prefix}-?v?[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z_0-9\.-]+)?(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
-    error "invalid tag format: '${tag}'"
-    exit 1
+if [[ ! "${tag}" =~ ^${prefix}-?v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z\.-]+)?(\+[0-9A-Za-z\.-]+)?$ ]]; then
+    # TODO: In the next major version, reject underscores in pre-release strings and build metadata.
+    if [[ ! "${tag}" =~ ^${prefix}-?v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z_\.-]+)?(\+[0-9A-Za-z_\.-]+)?$ ]]; then
+        error "invalid tag format: '${tag}'"
+        exit 1
+    fi
+    warn "underscores are not allowed in semver's pre-release strings and build metadata: '${tag}'"
 fi
-if [[ "${tag}" =~ ^${prefix}-?v?[0-9\.]+-[a-zA-Z_0-9\.-]+(\+[a-zA-Z_0-9\.-]+)?$ ]]; then
+# TODO: In the next major version, reject underscores in pre-release strings and build metadata.
+if [[ "${tag}" =~ ^${prefix}-?v?[0-9\.]+-[0-9A-Za-z_\.-]+(\+[0-9A-Za-z_\.-]+)?$ ]]; then
     prerelease="--prerelease"
 fi
 

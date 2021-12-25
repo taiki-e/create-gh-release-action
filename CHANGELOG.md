@@ -10,6 +10,12 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Fix handling of trailing hyphen in prefix. ([#10](https://github.com/taiki-e/create-gh-release-action/pull/10))
+
+- Warn version that invalid as semver. ([#11](https://github.com/taiki-e/create-gh-release-action/pull/11))
+
+  They will be rejected in the next major version.
+
 ## [1.3.0] - 2021-12-21
 
 - Add support for a custom tag prefix ([#8](https://github.com/taiki-e/create-gh-release-action/pull/8), thanks @hawkw)
