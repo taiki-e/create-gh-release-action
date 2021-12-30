@@ -5,17 +5,16 @@ IFS=$'\n\t'
 # https://github.com/taiki-e/parse-changelog/releases
 parse_changelog_tag="v0.4.5"
 
-error() {
+bail() {
     echo "::error::$*"
+    exit 1
 }
-
 warn() {
     echo "::warning::$*"
 }
 
 if [[ $# -gt 0 ]]; then
-    error "invalid argument: '$1'"
-    exit 1
+    bail "invalid argument '$1'"
 fi
 
 title="${INPUT_TITLE:?}"
@@ -25,21 +24,18 @@ branch="${INPUT_BRANCH:-}"
 prefix="${INPUT_PREFIX:-}"
 
 if [[ -z "${GITHUB_TOKEN:-}" ]]; then
-    error "GITHUB_TOKEN not set"
-    exit 1
+    bail "GITHUB_TOKEN not set"
 fi
 
 if [[ "${GITHUB_REF:?}" != "refs/tags/"* ]]; then
-    error "this action can only be used on 'push' event for 'tags' (GITHUB_REF should start with 'refs/tags/': '${GITHUB_REF}')"
-    exit 1
+    bail "this action can only be used on 'push' event for 'tags' (GITHUB_REF should start with 'refs/tags/': '${GITHUB_REF}')"
 fi
 tag="${GITHUB_REF#refs/tags/}"
 
 if [[ ! "${tag}" =~ ^${prefix}-?v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z\.-]+)?(\+[0-9A-Za-z\.-]+)?$ ]]; then
     # TODO: In the next major version, reject underscores in pre-release strings and build metadata.
     if [[ ! "${tag}" =~ ^${prefix}-?v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z_\.-]+)?(\+[0-9A-Za-z_\.-]+)?$ ]]; then
-        error "invalid tag format: '${tag}'"
-        exit 1
+        bail "invalid tag format '${tag}'"
     fi
     warn "underscores are not allowed in semver's pre-release strings and build metadata: '${tag}'"
 fi
@@ -69,15 +65,14 @@ changelog="${changelog/\$prefix/${prefix}}"
 case "${draft}" in
     true) draft_option="--draft" ;;
     false) ;;
-    *) error "'draft' input option must be 'true' or 'false': '${draft}'" && exit 1 ;;
+    *) bail "'draft' input option must be 'true' or 'false': '${draft}'" ;;
 esac
 
 if [[ -n "${branch}" ]]; then
     git fetch &>/dev/null
     if ! git branch -r --contains | grep -E "(^|\s)origin/(${branch})$" &>/dev/null; then
         git branch -r --contains
-        error "Creating of release is only allowed on commits contained in branches that match the specified pattern: '${branch}'"
-        exit 1
+        bail "creating of release is only allowed on commits contained in branches that match the specified pattern '${branch}'"
     fi
 fi
 
@@ -86,10 +81,10 @@ if [[ -n "${changelog}" ]]; then
         linux*) target="x86_64-unknown-linux-musl" ;;
         darwin*) target="x86_64-apple-darwin" ;;
         cygwin* | msys*) target="x86_64-pc-windows-msvc" ;;
-        *) error "unrecognized OSTYPE: ${OSTYPE}" && exit 1 ;;
+        *) bail "unrecognized OSTYPE '${OSTYPE}'" ;;
     esac
     # https://github.com/taiki-e/parse-changelog
-    curl --proto '=https' --tlsv1.2 -fsSL --retry 10 "https://github.com/taiki-e/parse-changelog/releases/download/${parse_changelog_tag}/parse-changelog-${target}.tar.gz" \
+    curl --proto '=https' --tlsv1.2 -fsSL --retry 10 --retry-connrefused "https://github.com/taiki-e/parse-changelog/releases/download/${parse_changelog_tag}/parse-changelog-${target}.tar.gz" \
         | tar xzf -
     notes=$(./parse-changelog "${changelog}" "${version}")
     rm -f ./parse-changelog
