@@ -37,6 +37,14 @@ inputs:
     required: false
     default: ''
 
+outputs:
+  computed-prefix:
+    description: >
+      The computed prefix, including '-' and 'v' if found.
+  version:
+    description:
+      The version number extracted from the tag. The tag name is a concatenation of computed-prefix
+      and version.
 runs:
   using: node16
   main: main.js

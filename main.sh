@@ -98,3 +98,8 @@ fi
 
 # https://cli.github.com/manual/gh_release_create
 gh release create ${draft_option:-} "${tag}" ${prerelease:-} --title "${title}" --notes "${notes:-}"
+
+# set (computed) prefix and version outputs for future step use
+computed_prefix=${tag%"$version"}
+echo "::set-output name=computed-prefix::${computed_prefix}"
+echo "::set-output name=version::${version}"

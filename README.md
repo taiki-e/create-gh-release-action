@@ -44,6 +44,13 @@ Currently, changelog format and supported tag names have the following rule:
 | branch    | false    | Reject releases from commits not contained in branches that match the specified pattern (regular expression) | String  |         |
 | prefix    | false    | An optional pattern that matches a prefix for the release tag, before the version number (see [action.yml](action.yml) for more) | String |         |
 
+### Outputs
+
+| Name            | Description                                                                                                    |
+|-----------------|----------------------------------------------------------------------------------------------------------------|
+| computed-prefix | The computed prefix, including '-' and 'v'.                                                                    |
+| version         | The version number extracted from the tag. The tag name is a concatenation of `computed-prefix` and `version`.-|
+
 ### Example workflow: Basic usage
 
 ```yaml
