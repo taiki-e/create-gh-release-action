@@ -70,7 +70,7 @@ esac
 
 if [[ -n "${branch}" ]]; then
     git fetch &>/dev/null
-    if ! git branch -r --contains | grep -E "(^|\s)origin/(${branch})$" &>/dev/null; then
+    if ! git branch -r --contains | grep -Eq "(^|\s)origin/(${branch})$"; then
         git branch -r --contains
         bail "creating of release is only allowed on commits contained in branches that match the specified pattern '${branch}'"
     fi
@@ -91,7 +91,7 @@ if [[ -n "${changelog}" ]]; then
 fi
 
 # https://cli.github.com/manual/gh_release_view
-if gh release view "${tag}" &>/dev/null; then
+if gh release view "${tag}" >/dev/null; then
     # https://cli.github.com/manual/gh_release_delete
     gh release delete "${tag}" -y
 fi
