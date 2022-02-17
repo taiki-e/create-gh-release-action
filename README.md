@@ -6,6 +6,7 @@ GitHub Action for creating GitHub Releases based on changelog.
 
 - [Usage](#usage)
   - [Inputs](#inputs)
+  - [Outputs](#outputs)
   - [Example workflow: Basic usage](#example-workflow-basic-usage)
   - [Example workflow: Create a draft release](#example-workflow-create-a-draft-release)
   - [Example workflow: Custom title](#example-workflow-custom-title)
@@ -49,7 +50,7 @@ Currently, changelog format and supported tag names have the following rule:
 | Name            | Description                                                                                                    |
 |-----------------|----------------------------------------------------------------------------------------------------------------|
 | computed-prefix | The computed prefix, including '-' and 'v'.                                                                    |
-| version         | The version number extracted from the tag. The tag name is a concatenation of `computed-prefix` and `version`.-|
+| version         | The version number extracted from the tag. The tag name is a concatenation of `computed-prefix` and `version`. |
 
 ### Example workflow: Basic usage
 
