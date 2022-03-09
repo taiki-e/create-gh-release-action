@@ -91,7 +91,7 @@ if [[ -n "${changelog}" ]]; then
 fi
 
 # https://cli.github.com/manual/gh_release_view
-if gh release view "${tag}" >/dev/null; then
+if gh release view "${tag}" &>/dev/null; then
     # https://cli.github.com/manual/gh_release_delete
     gh release delete "${tag}" -y
 fi
