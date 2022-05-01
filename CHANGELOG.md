@@ -14,6 +14,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 - Set `computed-prefix` and `version` outputs. ([#12](https://github.com/taiki-e/create-gh-release-action/pull/12), thanks @sunshowers)
 
+- Update default runtime to node16.
+
 ## [1.4.0] - 2021-12-25
 
 - Fix handling of trailing hyphen in prefix. ([#10](https://github.com/taiki-e/create-gh-release-action/pull/10))
