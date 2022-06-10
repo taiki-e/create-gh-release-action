@@ -198,10 +198,14 @@ jobs:
 
 - [upload-rust-binary-action]: GitHub Action for building and uploading Rust binary to GitHub Releases.
 - [parse-changelog]: Simple changelog parser, written in Rust. Used in this action.
+- [install-action]: GitHub Action for installing development tools.
+- [setup-cross-toolchain-action]: GitHub Action for setup toolchains for cross compilation and cross testing for Rust.
 
+[install-action]: https://github.com/taiki-e/install-action
 [keepachangelog]: https://keepachangelog.com/en/1.0.0
 [parse-changelog]: https://github.com/taiki-e/parse-changelog
 [semver]: https://semver.org
+[setup-cross-toolchain-action]: https://github.com/taiki-e/setup-cross-toolchain-action
 [upload-rust-binary-action]: https://github.com/taiki-e/upload-rust-binary-action
 
 ## License
