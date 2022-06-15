@@ -57,6 +57,9 @@ Currently, changelog format and supported tag names have the following rule:
 ```yaml
 name: Release
 
+permissions:
+  contents: write
+
 on:
   push:
     tags:
@@ -80,6 +83,9 @@ jobs:
 
 ```yaml
 name: Release
+
+permissions:
+  contents: write
 
 on:
   push:
@@ -111,6 +117,9 @@ You can customize the title of the release by `title` option.
 
 ```yaml
 name: Release
+
+permissions:
+  contents: write
 
 on:
   push:
@@ -144,6 +153,9 @@ If the `changelog` option is not specified, the changelog is ignored and only th
 ```yaml
 name: Release
 
+permissions:
+  contents: write
+
 on:
   push:
     tags:
@@ -166,6 +178,9 @@ You can reject releases from commits not contained in branches that match the sp
 
 ```yaml
 name: Release
+
+permissions:
+  contents: write
 
 on:
   push:
