@@ -206,8 +206,8 @@ jobs:
 
 ### Other examples
 
-- [pin-project/.github/workflows/release.yml](https://github.com/taiki-e/pin-project/blob/17368bcf3a07d29440d4aa95a7b4384ede9e54f5/.github/workflows/release.yml#L19-L36)
-- [urdf-viz/.github/workflows/release.yml](https://github.com/openrr/urdf-viz/blob/d6f16cbdda66a54a55ac2f14ac0c69819127b2d4/.github/workflows/release.yml#L29-L31)
+- [taiki-e/cargo-hack](https://github.com/taiki-e/cargo-hack/blob/202e6e59d491c9202ce148c9ef423853267226db/.github/workflows/release.yml#L25-L45)
+- [tokio-rs/tracing](https://github.com/tokio-rs/tracing/blob/2aa0cb010d8a7fa0de610413b5acd4557a00dd34/.github/workflows/release.yml#L10-L24)
 
 ## Related Projects
 
