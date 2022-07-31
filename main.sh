@@ -77,6 +77,7 @@ if [[ -n "${branch}" ]]; then
 fi
 
 if [[ -n "${changelog}" ]]; then
+    tar="tar"
     case "${OSTYPE}" in
         linux*) parse_changelog_target="x86_64-unknown-linux-musl" ;;
         darwin*)
