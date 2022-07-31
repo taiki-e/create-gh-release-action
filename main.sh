@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # https://github.com/taiki-e/parse-changelog/releases
-parse_changelog_tag="v0.4.7"
+parse_changelog_version="0.4.9"
 
 bail() {
     echo "::error::$*"
@@ -78,14 +78,20 @@ fi
 
 if [[ -n "${changelog}" ]]; then
     case "${OSTYPE}" in
-        linux*) target="x86_64-unknown-linux-musl" ;;
-        darwin*) target="x86_64-apple-darwin" ;;
-        cygwin* | msys*) target="x86_64-pc-windows-msvc" ;;
+        linux*) parse_changelog_target="x86_64-unknown-linux-musl" ;;
+        darwin*)
+            parse_changelog_target="x86_64-apple-darwin"
+            tar="gtar"
+            if ! type -P gtar; then
+                brew install gnu-tar &>/dev/null
+            fi
+            ;;
+        cygwin* | msys*) parse_changelog_target="x86_64-pc-windows-msvc" ;;
         *) bail "unrecognized OSTYPE '${OSTYPE}'" ;;
     esac
     # https://github.com/taiki-e/parse-changelog
-    curl --proto '=https' --tlsv1.2 -fsSL --retry 10 --retry-connrefused "https://github.com/taiki-e/parse-changelog/releases/download/${parse_changelog_tag}/parse-changelog-${target}.tar.gz" \
-        | tar xzf -
+    curl --proto '=https' --tlsv1.2 -fsSL --retry 10 --retry-connrefused "https://github.com/taiki-e/parse-changelog/releases/download/v${parse_changelog_version}/parse-changelog-${parse_changelog_target}.tar.gz" \
+        | "${tar}" xzf -
     notes=$(./parse-changelog "${changelog}" "${version}")
     rm -f ./parse-changelog
 fi
