@@ -13,6 +13,7 @@ GitHub Action for creating GitHub Releases based on changelog.
   - [Example workflow: No changelog](#example-workflow-no-changelog)
   - [Example workflow: Reject releases from outside of main branch](#example-workflow-reject-releases-from-outside-of-main-branch)
   - [Other examples](#other-examples)
+- [Compatibility](#compatibility)
 - [Related Projects](#related-projects)
 - [License](#license)
 
@@ -208,6 +209,16 @@ jobs:
 
 - [taiki-e/cargo-hack](https://github.com/taiki-e/cargo-hack/blob/202e6e59d491c9202ce148c9ef423853267226db/.github/workflows/release.yml#L25-L45)
 - [tokio-rs/tracing](https://github.com/tokio-rs/tracing/blob/2aa0cb010d8a7fa0de610413b5acd4557a00dd34/.github/workflows/release.yml#L10-L24)
+
+## Compatibility
+
+This action has been tested for action runners hosted by GitHub.
+To use this action in self-hosted runners or in containers, you will need to install at least the following:
+
+- bash, GNU Coreutils, GNU grep, GNU tar
+- curl
+- git
+- gh (GitHub CLI)
 
 ## Related Projects
 
