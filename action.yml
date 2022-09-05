@@ -13,6 +13,9 @@ inputs:
     description: Create a draft release ('true' or 'false')
     required: false
     default: 'false'
+  githubref:
+    description: Custom GITHUB_REF
+    required: true
   branch:
     description: Reject releases from commits not contained in branches that match the specified pattern (regular expression)
     required: false
