@@ -79,7 +79,6 @@ if [[ -n "${changelog}" ]]; then
     firstmatch=
     secondmatch=
     thirdmatch=
-    lines=
 
     while read line; do
         if [[ $line =~ $regex && -z "$firstmatch" ]]; then
@@ -89,11 +88,7 @@ if [[ -n "${changelog}" ]]; then
         elif [[ $line =~ $regex && -z "$thirdmatch" ]]; then
             thirdmatch=$line
         elif [[ -n "$secondmatch" && -z "$thirdmatch" ]]; then
-            if [[ -n "$lines" ]]; then
-                lines="$lines$line"
-            else
-                lines=$line
-            fi
+            echo $line >> CHANGELOG_SMALL.md
         fi
     done < $changelog
 fi
@@ -105,9 +100,11 @@ if gh release view "${tag}" &>/dev/null; then
 fi
 
 # https://cli.github.com/manual/gh_release_create
-gh release create ${draft_option:-} "${tag}" ${prerelease:-} --title "${title}" --notes "${lines:-}"
+gh release create ${draft_option:-} "${tag}" ${prerelease:-} --title "${title}" -F CHANGELOG_SMALL.md
 
 # set (computed) prefix and version outputs for future step use
 computed_prefix=${tag%"${version}"}
 echo "::set-output name=computed-prefix::${computed_prefix}"
 echo "::set-output name=version::${version}"
+
+rm -rf CHANGELOG_SMALL.md
