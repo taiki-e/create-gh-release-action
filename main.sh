@@ -91,7 +91,7 @@ if [[ -n "${changelog}" ]]; then
         elif [[ -n "$secondmatch" && -z "$thirdmatch" ]]; then
             lines="$lines$line"
         fi
-    done < ./CHANGELOG.md
+    done < $changelog
 fi
 
 # https://cli.github.com/manual/gh_release_view
