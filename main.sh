@@ -105,7 +105,8 @@ if gh release view "${tag}" &>/dev/null; then
 fi
 
 # https://cli.github.com/manual/gh_release_create
-gh release create ${draft_option:-} "${tag}" ${prerelease:-} --title "${title}" --notes "${lines:-}"
+#gh release create ${draft_option:-} "${tag}" ${prerelease:-} --title "${title}" --notes "${lines:-}"
+gh release create ${draft_option:-} "${tag}" ${prerelease:-} --title "${title}" -F CHANGELOG.md
 
 # set (computed) prefix and version outputs for future step use
 computed_prefix=${tag%"${version}"}
