@@ -22,15 +22,16 @@ changelog="${INPUT_CHANGELOG:-}"
 draft="${INPUT_DRAFT:-}"
 branch="${INPUT_BRANCH:-}"
 prefix="${INPUT_PREFIX:-}"
+github_ref="${INPUT_GITHUBREF:-}"
 
 if [[ -z "${GITHUB_TOKEN:-}" ]]; then
     bail "GITHUB_TOKEN not set"
 fi
 
-if [[ "${GITHUB_REF:?}" != "refs/tags/"* ]]; then
-    bail "this action can only be used on 'push' event for 'tags' (GITHUB_REF should start with 'refs/tags/': '${GITHUB_REF}')"
+if [[ "${github_ref:?}" != "refs/tags/"* ]]; then
+    bail "this action can only be used on 'push' event for 'tags' (github_ref should start with 'refs/tags/': '${github_ref}')"
 fi
-tag="${GITHUB_REF#refs/tags/}"
+tag="${github_ref#refs/tags/}"
 
 if [[ ! "${tag}" =~ ^${prefix}-?v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z\.-]+)?(\+[0-9A-Za-z\.-]+)?$ ]]; then
     # TODO: In the next major version, reject underscores in pre-release strings and build metadata.
