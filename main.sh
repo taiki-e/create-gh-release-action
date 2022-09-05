@@ -88,8 +88,12 @@ if [[ -n "${changelog}" ]]; then
             secondmatch=$line
         elif [[ $line =~ $regex && -z "$thirdmatch" ]]; then
             thirdmatch=$line
-        elif [[ -n "$secondmatch" && -z "$thirdmatch" ]]; then
-            lines="$lines\n$line"
+        elif [[ -n "$secondmatch" && -z "$thirdmatch" && $line != "" ]]; then
+            if [[ -n "$lines" ]]; then
+                lines="$lines<br />$line"
+            else
+                lines=$line
+            fi
         fi
     done < $changelog
 fi
