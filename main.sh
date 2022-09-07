@@ -32,6 +32,7 @@ if [[ "${GITHUB_REF:?}" != "refs/tags/"* ]]; then
 fi
 tag="${GITHUB_REF#refs/tags/}"
 
+release_options=("${tag}")
 if [[ ! "${tag}" =~ ^${prefix}-?v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z\.-]+)?(\+[0-9A-Za-z\.-]+)?$ ]]; then
     # TODO: In the next major version, reject underscores in pre-release strings and build metadata.
     if [[ ! "${tag}" =~ ^${prefix}-?v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z_\.-]+)?(\+[0-9A-Za-z_\.-]+)?$ ]]; then
@@ -41,7 +42,7 @@ if [[ ! "${tag}" =~ ^${prefix}-?v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z\.-]+)?(\+[0
 fi
 # TODO: In the next major version, reject underscores in pre-release strings and build metadata.
 if [[ "${tag}" =~ ^${prefix}-?v?[0-9\.]+-[0-9A-Za-z_\.-]+(\+[0-9A-Za-z_\.-]+)?$ ]]; then
-    prerelease="--prerelease"
+    release_options+=("--prerelease")
 fi
 
 version="${tag}"
@@ -63,7 +64,7 @@ changelog="${changelog/\$tag/${tag}}"
 changelog="${changelog/\$version/${version}}"
 changelog="${changelog/\$prefix/${prefix}}"
 case "${draft}" in
-    true) draft_option="--draft" ;;
+    true) release_options+=("--draft") ;;
     false) ;;
     *) bail "'draft' input option must be 'true' or 'false': '${draft}'" ;;
 esac
@@ -104,7 +105,7 @@ if gh release view "${tag}" &>/dev/null; then
 fi
 
 # https://cli.github.com/manual/gh_release_create
-gh release create ${draft_option:-} "${tag}" ${prerelease:-} --title "${title}" --notes "${notes:-}"
+gh release create "${release_options[@]}" --title "${title}" --notes "${notes:-}"
 
 # set (computed) prefix and version outputs for future step use
 computed_prefix=${tag%"${version}"}
