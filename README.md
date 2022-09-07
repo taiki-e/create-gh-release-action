@@ -38,15 +38,15 @@ Currently, changelog format and supported tag names have the following rule:
 
 ### Inputs
 
-| Name      | Required  | Description                                                                 | Type    | Default |
-|-----------|:---------:|-----------------------------------------------------------------------------|---------|---------|
-| token     | false [^1]| GitHub token for creating GitHub Releases (see [action.yml](action.yml) for more) | String |         |
-| changelog | false     | Path to changelog (variables `$tag`, `$version`, `$prefix`, and any string) | String  |         |
-| title     | false     | Format of title (variables `$tag`, `$version`, `$prefix`, and any string)   | String  | `$tag`  |
-| draft     | false     | Create a draft release (`true` or `false`)                                  | Boolean | `false` |
-| branch    | false     | Reject releases from commits not contained in branches that match the specified pattern (regular expression) | String  |         |
-| prefix    | false     | An optional pattern that matches a prefix for the release tag, before the version number (see [action.yml](action.yml) for more) | String |         |
-| ref       | false     | Fully-formed tag ref for this release (see [action.yml](action.yml) for more) | String |         |
+| Name      | Required     | Description                                                                 | Type    | Default |
+|-----------|:------------:|-----------------------------------------------------------------------------|---------|---------|
+| token     | **true** [^1]| GitHub token for creating GitHub Releases (see [action.yml](action.yml) for more) | String |         |
+| changelog | false        | Path to changelog (variables `$tag`, `$version`, `$prefix`, and any string) | String  |         |
+| title     | false        | Format of title (variables `$tag`, `$version`, `$prefix`, and any string)   | String  | `$tag`  |
+| draft     | false        | Create a draft release (`true` or `false`)                                  | Boolean | `false` |
+| branch    | false        | Reject releases from commits not contained in branches that match the specified pattern (regular expression) | String  |         |
+| prefix    | false        | An optional pattern that matches a prefix for the release tag, before the version number (see [action.yml](action.yml) for more) | String |         |
+| ref       | false        | Fully-formed tag ref for this release (see [action.yml](action.yml) for more) | String |         |
 
 [^1]: Required one of `token` input option or `GITHUB_TOKEN` environment variable.
 
@@ -79,9 +79,8 @@ jobs:
         with:
           # (Optional) Path to changelog.
           changelog: CHANGELOG.md
-        env:
           # (Required) GitHub token for creating GitHub Releases.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### Example workflow: Create a draft release
@@ -109,9 +108,8 @@ jobs:
           # (Optional) Create a draft release.
           # [default value: false]
           draft: true
-        env:
           # (Required) GitHub token for creating GitHub Releases.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### Example workflow: Custom title
@@ -144,9 +142,8 @@ jobs:
           # [default value: $tag]
           # [possible values: variables $tag, $version, and any string]
           title: $version
-        env:
           # (Required) GitHub token for creating GitHub Releases.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### Example workflow: No changelog
@@ -172,9 +169,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: taiki-e/create-gh-release-action@v1
-        env:
+        with:
           # (Required) GitHub token for creating GitHub Releases.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### Example workflow: Reject releases from outside of main branch
@@ -204,9 +201,8 @@ jobs:
           # (Optional) Reject releases from commits not contained in branches
           # that match the specified pattern (regular expression)
           branch: main
-        env:
           # (Required) GitHub token for creating GitHub Releases.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### Other examples
