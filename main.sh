@@ -23,15 +23,16 @@ draft="${INPUT_DRAFT:-}"
 branch="${INPUT_BRANCH:-}"
 prefix="${INPUT_PREFIX:-}"
 token="${INPUT_TOKEN:-"${GITHUB_TOKEN:-}"}"
+ref="${INPUT_REF:-"${GITHUB_REF:-}"}"
 
 if [[ -z "${token:-}" ]]; then
     bail "neither GITHUB_TOKEN environment variable nor 'token' input option is set."
 fi
 
-if [[ "${GITHUB_REF:?}" != "refs/tags/"* ]]; then
-    bail "this action can only be used on 'push' event for 'tags' (GITHUB_REF should start with 'refs/tags/': '${GITHUB_REF}')"
+if [[ "${ref:?}" != "refs/tags/"* ]]; then
+    bail "tag ref should start with 'refs/tags/': '${ref}'"
 fi
-tag="${GITHUB_REF#refs/tags/}"
+tag="${ref#refs/tags/}"
 
 release_options=("${tag}")
 parse_changelog_options=()

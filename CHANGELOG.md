@@ -12,6 +12,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 - Add `token` input option to use the specified token instead of `GITHUB_TOKEN` environment variable.
 
+- Add `ref` input option to use the specified tag ref instead of `GITHUB_REF` environment variable.
+
 - Update `parse-changelog` to 0.5.1. This includes a bug fix and performance improvements.
 
 ## [1.5.0] - 2022-02-17
