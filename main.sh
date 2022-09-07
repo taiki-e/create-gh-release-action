@@ -22,9 +22,10 @@ changelog="${INPUT_CHANGELOG:-}"
 draft="${INPUT_DRAFT:-}"
 branch="${INPUT_BRANCH:-}"
 prefix="${INPUT_PREFIX:-}"
+token="${INPUT_TOKEN:-"${GITHUB_TOKEN:-}"}"
 
-if [[ -z "${GITHUB_TOKEN:-}" ]]; then
-    bail "GITHUB_TOKEN not set"
+if [[ -z "${token:-}" ]]; then
+    bail "neither GITHUB_TOKEN environment variable nor 'token' input option is set."
 fi
 
 if [[ "${GITHUB_REF:?}" != "refs/tags/"* ]]; then
@@ -103,13 +104,13 @@ if [[ -n "${changelog}" ]]; then
 fi
 
 # https://cli.github.com/manual/gh_release_view
-if gh release view "${tag}" &>/dev/null; then
+if GITHUB_TOKEN="${token}" gh release view "${tag}" &>/dev/null; then
     # https://cli.github.com/manual/gh_release_delete
-    gh release delete "${tag}" -y
+    GITHUB_TOKEN="${token}" gh release delete "${tag}" -y
 fi
 
 # https://cli.github.com/manual/gh_release_create
-gh release create "${release_options[@]}" --title "${title}" --notes "${notes:-}"
+GITHUB_TOKEN="${token}" gh release create "${release_options[@]}" --title "${title}" --notes "${notes:-}"
 
 # set (computed) prefix and version outputs for future step use
 computed_prefix=${tag%"${version}"}

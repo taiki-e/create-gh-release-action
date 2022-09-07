@@ -36,6 +36,12 @@ inputs:
       variable.
     required: false
     default: ''
+  token:
+    description: >
+      GitHub token for creating GitHub Releases.
+
+      If not set this option, the GITHUB_TOKEN environment variable will be used.
+    required: false
 
 outputs:
   computed-prefix:
