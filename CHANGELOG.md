@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Update `parse-changelog` to 0.5.1. This includes a bug fix and performance improvements.
+
 ## [1.5.0] - 2022-02-17
 
 - Set `computed-prefix` and `version` outputs. ([#12](https://github.com/taiki-e/create-gh-release-action/pull/12), thanks @sunshowers)

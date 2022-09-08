@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # https://github.com/taiki-e/parse-changelog/releases
-parse_changelog_version="0.4.9"
+parse_changelog_version="0.5.1"
 
 bail() {
     echo "::error::$*"
@@ -33,12 +33,15 @@ fi
 tag="${GITHUB_REF#refs/tags/}"
 
 release_options=("${tag}")
+parse_changelog_options=()
 if [[ ! "${tag}" =~ ^${prefix}-?v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z\.-]+)?(\+[0-9A-Za-z\.-]+)?$ ]]; then
     # TODO: In the next major version, reject underscores in pre-release strings and build metadata.
     if [[ ! "${tag}" =~ ^${prefix}-?v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z_\.-]+)?(\+[0-9A-Za-z_\.-]+)?$ ]]; then
         bail "invalid tag format '${tag}'"
     fi
-    warn "underscores are not allowed in semver's pre-release strings and build metadata: '${tag}'"
+    warn "underscores are not allowed in semver's pre-release strings and build metadata; this will be rejected in the next major version of create-gh-release-action: '${tag}'"
+    # parse-changelog 0.5+'s default version format strictly adheres to semver.
+    parse_changelog_options+=(--version-format '^\d+\.\d+\.\d+(-[\w\.-]+)?(\+[\w\.-]+)?$')
 fi
 # TODO: In the next major version, reject underscores in pre-release strings and build metadata.
 if [[ "${tag}" =~ ^${prefix}-?v?[0-9\.]+-[0-9A-Za-z_\.-]+(\+[0-9A-Za-z_\.-]+)?$ ]]; then
@@ -94,7 +97,8 @@ if [[ -n "${changelog}" ]]; then
     # https://github.com/taiki-e/parse-changelog
     curl --proto '=https' --tlsv1.2 -fsSL --retry 10 --retry-connrefused "https://github.com/taiki-e/parse-changelog/releases/download/v${parse_changelog_version}/parse-changelog-${parse_changelog_target}.tar.gz" \
         | "${tar}" xzf -
-    notes=$(./parse-changelog "${changelog}" "${version}")
+    parse_changelog_options+=("${changelog}" "${version}")
+    notes=$(./parse-changelog "${parse_changelog_options[@]}")
     rm -f ./parse-changelog
 fi
 
