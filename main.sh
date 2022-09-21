@@ -89,7 +89,7 @@ if [[ -n "${changelog}" ]]; then
         darwin*)
             parse_changelog_target="x86_64-apple-darwin"
             tar="gtar"
-            if ! type -P gtar; then
+            if ! type -P gtar &>/dev/null; then
                 brew install gnu-tar &>/dev/null
             fi
             ;;
