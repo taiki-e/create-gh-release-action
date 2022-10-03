@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Fix invalid version format check introduced in 1.4.0.
+
 ## [1.6.0] - 2022-09-08
 
 - Add `token` input option to use the specified token instead of `GITHUB_TOKEN` environment variable.
