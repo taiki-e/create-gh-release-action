@@ -115,5 +115,5 @@ GITHUB_TOKEN="${token}" gh release create "${release_options[@]}" --title "${tit
 
 # set (computed) prefix and version outputs for future step use
 computed_prefix=${tag%"${version}"}
-echo "::set-output name=computed-prefix::${computed_prefix}"
-echo "::set-output name=version::${version}"
+echo "computed-prefix=${computed_prefix}" >>"${GITHUB_OUTPUT}"
+echo "version=${version}" >>"${GITHUB_OUTPUT}"
