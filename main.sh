@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # https://github.com/taiki-e/parse-changelog/releases
-parse_changelog_version="0.5.1"
+parse_changelog_version="0.5.2"
 
 bail() {
     echo "::error::$*"
