@@ -207,8 +207,8 @@ jobs:
 
 ### Other examples
 
-- [taiki-e/cargo-hack](https://github.com/taiki-e/cargo-hack/blob/202e6e59d491c9202ce148c9ef423853267226db/.github/workflows/release.yml#L25-L45)
-- [tokio-rs/tracing](https://github.com/tokio-rs/tracing/blob/2aa0cb010d8a7fa0de610413b5acd4557a00dd34/.github/workflows/release.yml#L10-L24)
+- [cargo-hack](https://github.com/taiki-e/cargo-hack/blob/202e6e59d491c9202ce148c9ef423853267226db/.github/workflows/release.yml#L25-L45)
+- [tracing](https://github.com/tokio-rs/tracing/blob/2aa0cb010d8a7fa0de610413b5acd4557a00dd34/.github/workflows/release.yml#L10-L24)
 
 ## Compatibility
 
