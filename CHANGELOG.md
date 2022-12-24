@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [1.6.2] - 2022-12-24
+
 - Support self-hosted runner that does not set `GITHUB_OUTPUT` environment variable. ([#17](https://github.com/taiki-e/create-gh-release-action/pull/17))
 
 ## [1.6.1] - 2022-10-14
@@ -78,7 +80,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 Initial release
 
-[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.1...HEAD
+[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.2...HEAD
+[1.6.2]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/taiki-e/create-gh-release-action/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/taiki-e/create-gh-release-action/compare/v1.4.0...v1.5.0
