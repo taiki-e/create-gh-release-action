@@ -113,7 +113,14 @@ fi
 # https://cli.github.com/manual/gh_release_create
 GITHUB_TOKEN="${token}" gh release create "${release_options[@]}" --title "${title}" --notes "${notes:-}"
 
-# set (computed) prefix and version outputs for future step use
+# Set (computed) prefix and version outputs for future step use.
 computed_prefix=${tag%"${version}"}
-echo "computed-prefix=${computed_prefix}" >>"${GITHUB_OUTPUT}"
-echo "version=${version}" >>"${GITHUB_OUTPUT}"
+if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
+    echo "computed-prefix=${computed_prefix}" >>"${GITHUB_OUTPUT}"
+    echo "version=${version}" >>"${GITHUB_OUTPUT}"
+else
+    # Self-hosted runner may not set GITHUB_OUTPUT.
+    warn "GITHUB_OUTPUT is not set; skip setting 'computed-prefix' and 'version' outputs"
+    echo "computed-prefix: ${computed_prefix}"
+    echo "version: ${version}"
+fi

@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Support self-hosted runner that does not set `GITHUB_OUTPUT` environment variable. ([#17](https://github.com/taiki-e/create-gh-release-action/pull/17))
+
 ## [1.6.1] - 2022-10-14
 
 - Fix invalid version format check introduced in 1.4.0.
