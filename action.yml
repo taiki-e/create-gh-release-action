@@ -53,10 +53,16 @@ outputs:
   computed-prefix:
     description: >
       The computed prefix, including '-' and 'v' if found.
+    value: ${{ steps.main.outputs.computed-prefix }}
   version:
     description:
       The version number extracted from the tag. The tag name is a concatenation of computed-prefix
       and version.
+    value: ${{ steps.main.outputs.version }}
+
 runs:
-  using: node16
-  main: main.js
+  using: composite
+  steps:
+    - id: main
+      run: ${{ github.action_path }}/main.sh
+      shell: bash
