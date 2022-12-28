@@ -1,5 +1,6 @@
 # create-gh-release-action
 
+[![release](https://img.shields.io/github/release/taiki-e/create-gh-release-action?style=flat-square&logo=github)](https://github.com/taiki-e/create-gh-release-action/releases/latest)
 [![build status](https://img.shields.io/github/actions/workflow/status/taiki-e/create-gh-release-action/ci.yml?branch=main&style=flat-square&logo=github)](https://github.com/taiki-e/create-gh-release-action/actions)
 
 GitHub Action for creating GitHub Releases based on changelog.
