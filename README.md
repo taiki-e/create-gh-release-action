@@ -34,7 +34,7 @@ Currently, changelog format and supported tag names have the following rule:
   [If the `changelog` option is not specified, the changelog is ignored and only the release created.](#example-workflow-no-changelog)
 
 - The supported tag format is `v?MAJOR.MINOR.PATCH(-PRERELEASE)?(+BUILD_METADATA)?`.
-  (leading "v", pre-release version, and build metadata are optional.)
+  (leading "v", pre-release version, and build metadata are optional.) The optional prefix is also supported.
   This is based on [Semantic Versioning][semver]
 
 ### Inputs
@@ -225,9 +225,11 @@ To use this action in self-hosted runners or in containers, you will need to ins
 
 - [upload-rust-binary-action]: GitHub Action for building and uploading Rust binary to GitHub Releases.
 - [parse-changelog]: Simple changelog parser, written in Rust. Used in this action.
-- [install-action]: GitHub Action for installing development tools.
 - [setup-cross-toolchain-action]: GitHub Action for setup toolchains for cross compilation and cross testing for Rust.
+- [install-action]: GitHub Action for installing development tools (mainly from GitHub Releases).
+- [cache-cargo-install-action]: GitHub Action for `cargo install` with cache.
 
+[cache-cargo-install-action]: https://github.com/taiki-e/cache-cargo-install-action
 [install-action]: https://github.com/taiki-e/install-action
 [keepachangelog]: https://keepachangelog.com/en/1.0.0
 [parse-changelog]: https://github.com/taiki-e/parse-changelog
