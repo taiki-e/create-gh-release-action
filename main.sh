@@ -5,6 +5,16 @@ IFS=$'\n\t'
 # https://github.com/taiki-e/parse-changelog/releases
 parse_changelog_version="0.5.2"
 
+retry() {
+    for i in {1..10}; do
+        if "$@"; then
+            return 0
+        else
+            sleep "${i}"
+        fi
+    done
+    "$@"
+}
 bail() {
     echo "::error::$*"
     exit 1
@@ -97,7 +107,7 @@ if [[ -n "${changelog}" ]]; then
         *) bail "unrecognized OSTYPE '${OSTYPE}'" ;;
     esac
     # https://github.com/taiki-e/parse-changelog
-    curl --proto '=https' --tlsv1.2 -fsSL --retry 10 --retry-connrefused "https://github.com/taiki-e/parse-changelog/releases/download/v${parse_changelog_version}/parse-changelog-${parse_changelog_target}.tar.gz" \
+    retry curl --proto '=https' --tlsv1.2 -fsSL --retry 10 --retry-connrefused "https://github.com/taiki-e/parse-changelog/releases/download/v${parse_changelog_version}/parse-changelog-${parse_changelog_target}.tar.gz" \
         | "${tar}" xzf -
     parse_changelog_options+=("${changelog}" "${version}")
     notes=$(./parse-changelog "${parse_changelog_options[@]}")
