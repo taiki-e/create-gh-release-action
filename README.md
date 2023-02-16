@@ -14,6 +14,7 @@ GitHub Action for creating GitHub Releases based on changelog.
   - [Example workflow: No changelog](#example-workflow-no-changelog)
   - [Example workflow: Reject releases from outside of main branch](#example-workflow-reject-releases-from-outside-of-main-branch)
   - [Other examples](#other-examples)
+- [Supported events](#supported-events)
 - [Compatibility](#compatibility)
 - [Related Projects](#related-projects)
 - [License](#license)
@@ -210,6 +211,40 @@ jobs:
 
 - [cargo-hack](https://github.com/taiki-e/cargo-hack/blob/202e6e59d491c9202ce148c9ef423853267226db/.github/workflows/release.yml#L25-L45)
 - [tracing](https://github.com/tokio-rs/tracing/blob/2aa0cb010d8a7fa0de610413b5acd4557a00dd34/.github/workflows/release.yml#L10-L24)
+
+## Supported events
+
+The following two events are supported by default:
+
+- tags ([`on.push.tags`](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#push))
+
+  For example:
+
+  ```yaml
+  on:
+    push:
+      tags:
+        - v[0-9]+.*
+  ```
+
+- GitHub release ([`on.release`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#release))
+
+  For example:
+
+  ```yaml
+  on:
+    release:
+      types: [created]
+  ```
+
+You can create a release from arbitrary event to arbitrary tag by specifying the `ref` input option.
+
+For example, to create a release to the `my_tag` tag, specify `ref` input option as follows:
+
+```yaml
+with:
+  ref: refs/tags/my_tag
+```
 
 ## Compatibility
 
