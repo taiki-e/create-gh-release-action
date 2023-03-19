@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [1.6.3] - 2023-03-19
+
 - Diagnostics improvements.
 
 ## [1.6.2] - 2022-12-24
@@ -82,7 +84,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 Initial release
 
-[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.2...HEAD
+[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.3...HEAD
+[1.6.3]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.2...v1.6.3
 [1.6.2]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/taiki-e/create-gh-release-action/compare/v1.5.0...v1.6.0
