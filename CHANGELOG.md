@@ -10,6 +10,10 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+### Added
+
+- Added new input `allowMissingChangelog:boolean` that will allow the build to continue to run even though the targeted version was not found on the changelog file.  The default of this input is `false` to stay backwards compatible.
+
 ## [1.6.3] - 2023-03-19
 
 - Diagnostics improvements.

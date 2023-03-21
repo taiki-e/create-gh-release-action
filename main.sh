@@ -110,7 +110,14 @@ if [[ -n "${changelog}" ]]; then
     retry curl --proto '=https' --tlsv1.2 -fsSL --retry 10 --retry-connrefused "https://github.com/taiki-e/parse-changelog/releases/download/v${parse_changelog_version}/parse-changelog-${parse_changelog_target}.tar.gz" \
         | "${tar}" xzf -
     parse_changelog_options+=("${changelog}" "${version}")
-    notes=$(./parse-changelog "${parse_changelog_options[@]}")
+
+    # If allowMissingChangelog is true then default to empty value if version not found
+    if [[ "${allowMissingChangelog}" == "true" ]]; then
+        notes=$(./parse-changelog "${parse_changelog_options[@]}" || echo "")
+    else
+        notes=$(./parse-changelog "${parse_changelog_options[@]}")
+    fi
+
     rm -f ./parse-changelog
 fi
 
