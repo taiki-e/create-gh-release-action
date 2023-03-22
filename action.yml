@@ -5,6 +5,13 @@ inputs:
   changelog:
     description: Path to changelog (variables `$tag`, `$version`, `$prefix`, and any string)
     required: false
+  allow_missing_changelog:
+    description: >
+      If true, it will create the GitHub release with an empty notes for the changelog if the changelog.md file does not
+      have the appropriate version in it.  By default, this action will fail if the version tagged is not found in the
+      changelog file.
+    required: false
+    default: false
   title:
     description: Format of title (variables `$tag`, `$version`, `$prefix`, and any string)
     required: false
