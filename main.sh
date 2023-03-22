@@ -27,8 +27,10 @@ if [[ $# -gt 0 ]]; then
     bail "invalid argument '$1'"
 fi
 
+# Input options
 title="${INPUT_TITLE:?}"
 changelog="${INPUT_CHANGELOG:-}"
+allow_missing_changelog="${INPUT_ALLOW_MISSING_CHANGELOG:-}"
 draft="${INPUT_DRAFT:-}"
 branch="${INPUT_BRANCH:-}"
 prefix="${INPUT_PREFIX:-}"
@@ -83,6 +85,10 @@ case "${draft}" in
     false) ;;
     *) bail "'draft' input option must be 'true' or 'false': '${draft}'" ;;
 esac
+case "${allow_missing_changelog}" in
+    true | false) ;;
+    *) bail "'allow_missing_changelog' input option must be 'true' or 'false': '${allow_missing_changelog}'" ;;
+esac
 
 if [[ -n "${branch}" ]]; then
     git fetch &>/dev/null
@@ -112,7 +118,7 @@ if [[ -n "${changelog}" ]]; then
     parse_changelog_options+=("${changelog}" "${version}")
 
     # If allow_missing_changelog is true then default to empty value if version not found
-    if [[ "${INPUT_ALLOW_MISSING_CHANGELOG}" == "true" ]]; then
+    if [[ "${allow_missing_changelog}" == "true" ]]; then
         notes=$(./parse-changelog "${parse_changelog_options[@]}" || echo "")
     else
         notes=$(./parse-changelog "${parse_changelog_options[@]}")
