@@ -5,11 +5,10 @@ inputs:
   changelog:
     description: Path to changelog (variables `$tag`, `$version`, `$prefix`, and any string)
     required: false
-  allow_missing_changelog:
+  allow-missing-changelog:
     description: >
-      If true, it will create the GitHub release with an empty notes for the changelog if the changelog.md file does not
-      have the appropriate version in it.  By default, this action will fail if the version tagged is not found in the
-      changelog file.
+      Create the release even if the changelog entry corresponding to the version is missing.
+      The default value of the changelog will be an empty string.
     required: false
     default: 'false'
   title:
@@ -78,7 +77,7 @@ runs:
       shell: bash
       env:
         INPUT_CHANGELOG: ${{ inputs.changelog }}
-        INPUT_ALLOW_MISSING_CHANGELOG: ${{ inputs.allow_missing_changelog }}
+        INPUT_ALLOW_MISSING_CHANGELOG: ${{ inputs.allow-missing-changelog }}
         INPUT_TITLE: ${{ inputs.title }}
         INPUT_DRAFT: ${{ inputs.draft }}
         INPUT_BRANCH: ${{ inputs.branch }}

@@ -12,7 +12,9 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ### Added
 
-- Added new input `allow_missing_changelog:boolean` that will allow the build to continue to run even though the targeted version was not found on the changelog file.  The default of this input is `false` to stay backwards compatible.
+- Add `allow-missing-changelog` input option to allow create the release even if the changelog entry corresponding to the version is missing. ([#23](https://github.com/taiki-e/create-gh-release-action/pull/23), thanks @lmajano)
+
+- Switch to composite action. ([#24](https://github.com/taiki-e/create-gh-release-action/pull/24))
 
 ## [1.6.3] - 2023-03-19
 
