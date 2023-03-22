@@ -111,8 +111,8 @@ if [[ -n "${changelog}" ]]; then
         | "${tar}" xzf -
     parse_changelog_options+=("${changelog}" "${version}")
 
-    # If allowMissingChangelog is true then default to empty value if version not found
-    if [[ "${allowMissingChangelog}" == "true" ]]; then
+    # If allow_missing_changelog is true then default to empty value if version not found
+    if [[ "${INPUT_ALLOW_MISSING_CHANGELOG}" == "true" ]]; then
         notes=$(./parse-changelog "${parse_changelog_options[@]}" || echo "")
     else
         notes=$(./parse-changelog "${parse_changelog_options[@]}")
