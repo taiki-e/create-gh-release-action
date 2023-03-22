@@ -11,7 +11,7 @@ inputs:
       have the appropriate version in it.  By default, this action will fail if the version tagged is not found in the
       changelog file.
     required: false
-    default: false
+    default: 'false'
   title:
     description: Format of title (variables `$tag`, `$version`, `$prefix`, and any string)
     required: false
@@ -60,10 +60,28 @@ outputs:
   computed-prefix:
     description: >
       The computed prefix, including '-' and 'v' if found.
+    value: ${{ steps.main.outputs.computed-prefix }}
   version:
     description:
       The version number extracted from the tag. The tag name is a concatenation of computed-prefix
       and version.
+    value: ${{ steps.main.outputs.version }}
+
+# Note:
+# - inputs.* should be manually mapped to INPUT_* due to https://github.com/actions/runner/issues/665
+# - Use GITHUB_*/RUNNER_* instead of github.*/runner.* due to https://github.com/actions/runner/issues/2185
 runs:
-  using: node16
-  main: main.js
+  using: composite
+  steps:
+    - id: main
+      run: bash --noprofile --norc "${GITHUB_ACTION_PATH:?}/main.sh"
+      shell: bash
+      env:
+        INPUT_CHANGELOG: ${{ inputs.changelog }}
+        INPUT_ALLOW_MISSING_CHANGELOG: ${{ inputs.allow_missing_changelog }}
+        INPUT_TITLE: ${{ inputs.title }}
+        INPUT_DRAFT: ${{ inputs.draft }}
+        INPUT_BRANCH: ${{ inputs.branch }}
+        INPUT_PREFIX: ${{ inputs.prefix }}
+        INPUT_TOKEN: ${{ inputs.token }}
+        INPUT_REF: ${{ inputs.ref }}
