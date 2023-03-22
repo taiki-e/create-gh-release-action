@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [1.7.0] - 2023-03-22
+
 - Add `allow-missing-changelog` input option to allow create the release even if the changelog entry corresponding to the version is missing. ([#23](https://github.com/taiki-e/create-gh-release-action/pull/23), thanks @lmajano)
 
 - Switch to composite action. ([#24](https://github.com/taiki-e/create-gh-release-action/pull/24))
@@ -88,7 +90,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 Initial release
 
-[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.3...HEAD
+[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.3...v1.7.0
 [1.6.3]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.2...v1.6.3
 [1.6.2]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.0...v1.6.1
