@@ -32,6 +32,7 @@ title="${INPUT_TITLE:?}"
 changelog="${INPUT_CHANGELOG:-}"
 allow_missing_changelog="${INPUT_ALLOW_MISSING_CHANGELOG:-}"
 draft="${INPUT_DRAFT:-}"
+latest="${INPUT_LATEST:-}"
 branch="${INPUT_BRANCH:-}"
 prefix="${INPUT_PREFIX:-}"
 token="${INPUT_TOKEN:-"${GITHUB_TOKEN:-}"}"
@@ -84,6 +85,12 @@ case "${draft}" in
     true) release_options+=("--draft") ;;
     false) ;;
     *) bail "'draft' input option must be 'true' or 'false': '${draft}'" ;;
+esac
+case "${latest}" in
+    true) release_options+=("--latest") ;;
+    false) release_options+=("--latest=false") ;;
+    '') ;; # default
+    *) bail "'latest' input option must be 'true' or 'false': '${latest}'" ;;
 esac
 case "${allow_missing_changelog}" in
     true | false) ;;

@@ -19,6 +19,12 @@ inputs:
     description: Create a draft release ('true' or 'false')
     required: false
     default: 'false'
+  latest:
+    description: >
+      Create a release as "latest" ('true' or 'false')
+
+      default: automatic based on date and version
+    required: false
   branch:
     description: Reject releases from commits not contained in branches that match the specified pattern (regular expression)
     required: false
@@ -80,6 +86,7 @@ runs:
         INPUT_ALLOW_MISSING_CHANGELOG: ${{ inputs.allow-missing-changelog }}
         INPUT_TITLE: ${{ inputs.title }}
         INPUT_DRAFT: ${{ inputs.draft }}
+        INPUT_LATEST: ${{ inputs.latest }}
         INPUT_BRANCH: ${{ inputs.branch }}
         INPUT_PREFIX: ${{ inputs.prefix }}
         INPUT_TOKEN: ${{ inputs.token }}

@@ -47,6 +47,7 @@ Currently, changelog format and supported tag names have the following rule:
 | allow-missing-changelog | false | Create the release even if the changelog entry corresponding to the version is missing. The default value of the changelog will be an empty string. | Boolean | `false` |
 | title     | false        | Format of title (variables `$tag`, `$version`, `$prefix`, and any string)   | String  | `$tag`  |
 | draft     | false        | Create a draft release (`true` or `false`)                                  | Boolean | `false` |
+| latest    | false        | Create a release as "latest" (`true` or `false`)                            | Boolean | (automatic based on date and version) |
 | branch    | false        | Reject releases from commits not contained in branches that match the specified pattern (regular expression) | String  |         |
 | prefix    | false        | An optional pattern that matches a prefix for the release tag, before the version number (see [action.yml](action.yml) for more) | String |         |
 | ref       | false        | Fully-formed tag ref for this release (see [action.yml](action.yml) for more) | String |         |
