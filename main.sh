@@ -145,7 +145,7 @@ GITHUB_TOKEN="${token}" gh release create "${release_options[@]}" --title "${tit
 
 # TODO: check edit_options is not empty
 # https://cli.github.com/manual/gh_release_edit
-GITHUB_TOKEN="${token}" gh release edit "${edit_options[@]}"
+GITHUB_TOKEN="${token}" gh release edit "${edit_options[@]}" "${tag}"
 
 # Set (computed) prefix and version outputs for future step use.
 computed_prefix=${tag%"${version}"}
