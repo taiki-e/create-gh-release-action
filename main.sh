@@ -87,8 +87,8 @@ case "${draft}" in
     *) bail "'draft' input option must be 'true' or 'false': '${draft}'" ;;
 esac
 case "${latest}" in
-    true) release_options+=("--latest") ;;
-    false) release_options+=("--latest=false") ;;
+    true) edit_options+=("--latest") ;;
+    false) edit_options+=("--latest=false") ;;
     '') ;; # default
     *) bail "'latest' input option must be 'true' or 'false': '${latest}'" ;;
 esac
@@ -142,6 +142,10 @@ fi
 
 # https://cli.github.com/manual/gh_release_create
 GITHUB_TOKEN="${token}" gh release create "${release_options[@]}" --title "${title}" --notes "${notes:-}"
+
+# TODO: check edit_options is not empty
+# https://cli.github.com/manual/gh_release_edit
+GITHUB_TOKEN="${token}" gh release edit "${edit_options[@]}"
 
 # Set (computed) prefix and version outputs for future step use.
 computed_prefix=${tag%"${version}"}
