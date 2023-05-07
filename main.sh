@@ -144,6 +144,7 @@ fi
 GITHUB_TOKEN="${token}" gh release create "${release_options[@]}" --title "${title}" --notes "${notes:-}"
 
 # TODO: check edit_options is not empty
+# TODO: not work
 # https://cli.github.com/manual/gh_release_edit
 GITHUB_TOKEN="${token}" gh release edit "${edit_options[@]}" "${tag}"
 
