@@ -255,7 +255,7 @@ To use this action in self-hosted runners or in containers, at least the followi
 - bash, GNU Coreutils, GNU grep, GNU tar
 - curl
 - git
-- gh (GitHub CLI)
+- [gh (GitHub CLI)](https://github.com/cli/cli#installation)
 
 ## Related Projects
 
