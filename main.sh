@@ -4,7 +4,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # https://github.com/taiki-e/parse-changelog/releases
-parse_changelog_version="0.6.0"
+parse_changelog_version="0.6.2"
 
 retry() {
     for i in {1..10}; do
