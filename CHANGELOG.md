@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Update `parse-changelog` to 0.6.2.
+
 ## [1.7.0] - 2023-03-22
 
 - Add `allow-missing-changelog` input option to allow create the release even if the changelog entry corresponding to the version is missing. ([#23](https://github.com/taiki-e/create-gh-release-action/pull/23), thanks @lmajano)
