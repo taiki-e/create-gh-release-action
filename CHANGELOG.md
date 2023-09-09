@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Improve robustness for temporary network failures.
+
 ## [1.7.1] - 2023-08-06
 
 - Update `parse-changelog` to 0.6.2.

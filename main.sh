@@ -129,13 +129,13 @@ if [[ -n "${changelog}" ]]; then
 fi
 
 # https://cli.github.com/manual/gh_release_view
-if GITHUB_TOKEN="${token}" gh release view "${tag}" &>/dev/null; then
+if GITHUB_TOKEN="${token}" retry gh release view "${tag}" &>/dev/null; then
     # https://cli.github.com/manual/gh_release_delete
-    GITHUB_TOKEN="${token}" gh release delete "${tag}" -y
+    GITHUB_TOKEN="${token}" retry gh release delete "${tag}" -y
 fi
 
 # https://cli.github.com/manual/gh_release_create
-GITHUB_TOKEN="${token}" gh release create "${release_options[@]}" --title "${title}" --notes "${notes:-}"
+GITHUB_TOKEN="${token}" retry gh release create "${release_options[@]}" --title "${title}" --notes "${notes:-}"
 
 # Set (computed) prefix and version outputs for future step use.
 computed_prefix=${tag%"${version}"}
