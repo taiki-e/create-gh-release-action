@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [1.7.2] - 2023-09-09
+
 - Improve robustness for temporary network failures.
 
 ## [1.7.1] - 2023-08-06
@@ -96,7 +98,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 Initial release
 
-[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.7.1...HEAD
+[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.7.2...HEAD
+[1.7.2]: https://github.com/taiki-e/create-gh-release-action/compare/v1.7.1...v1.7.2
 [1.7.1]: https://github.com/taiki-e/create-gh-release-action/compare/v1.7.0...v1.7.1
 [1.7.0]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.3...v1.7.0
 [1.6.3]: https://github.com/taiki-e/create-gh-release-action/compare/v1.6.2...v1.6.3
