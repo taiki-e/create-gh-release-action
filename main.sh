@@ -3,9 +3,6 @@
 set -eEuo pipefail
 IFS=$'\n\t'
 
-# https://github.com/taiki-e/parse-changelog/releases
-parse_changelog_version="0.6.3"
-
 retry() {
     for i in {1..10}; do
         if "$@"; then
@@ -22,6 +19,20 @@ bail() {
 }
 warn() {
     echo "::warning::$*"
+}
+download_and_checksum() {
+    local url="${1:?}"
+    local checksum="${2:?}"
+    retry curl --proto '=https' --tlsv1.2 -fsSL --retry 10 "${url}" -o tmp
+    if type -P sha256sum &>/dev/null; then
+        echo "${checksum} *tmp" | sha256sum -c - >/dev/null
+    elif type -P shasum &>/dev/null; then
+        # GitHub-hosted macOS runner does not install GNU Coreutils by default.
+        # https://github.com/actions/runner-images/issues/90
+        echo "${checksum} *tmp" | shasum -a 256 -c - >/dev/null
+    else
+        warn "checksum requires 'sha256sum' or 'shasum' command; consider installing one of them; skipped checksum for $(basename "${url}")"
+    fi
 }
 
 if [[ $# -gt 0 ]]; then
@@ -100,38 +111,57 @@ if [[ -n "${branch}" ]]; then
 fi
 
 if [[ -n "${changelog}" ]]; then
-    tar="tar"
-    case "${OSTYPE}" in
-        linux*) parse_changelog_target="x86_64-unknown-linux-musl" ;;
-        darwin*)
-            parse_changelog_target="x86_64-apple-darwin"
-            tar="gtar"
-            if ! type -P gtar &>/dev/null; then
-                brew install gnu-tar &>/dev/null
-            fi
+    # https://github.com/taiki-e/install-action/blob/HEAD/manifests/parse-changelog.json
+    parse_changelog_version="0.6.3"
+    exe=''
+    case "$(uname -s)" in
+        Linux)
+            # AArch64 macOS/Windows can run x86_64 binaries, so handles architecture only on Linux.
+            case "$(uname -m)" in
+                aarch64 | arm64)
+                    parse_changelog_target="aarch64-unknown-linux-musl"
+                    parse_changelog_checksum='6aa06d96c2a7c89786f9925e6c54472c77fda0c813c335566f870ecb4ca34d8e'
+                    ;;
+                *)
+                    parse_changelog_target="x86_64-unknown-linux-musl"
+                    parse_changelog_checksum='b01992d759aad7e861363e1d4bbb808b28d530844da1efbc9f8f0f54bad2f813'
+                    ;;
+            esac
             ;;
-        cygwin* | msys*) parse_changelog_target="x86_64-pc-windows-msvc" ;;
-        *) bail "unrecognized OSTYPE '${OSTYPE}'" ;;
+        Darwin)
+            parse_changelog_target="x86_64-apple-darwin"
+            parse_changelog_checksum='5d0fa26aa6e742b96d1ef8c7aeccdf63469512a706961921242bde2de7640d89'
+            ;;
+        MINGW* | MSYS* | CYGWIN* | Windows_NT)
+            exe=".exe"
+            parse_changelog_target="x86_64-pc-windows-msvc"
+            parse_changelog_checksum='31c7bbe5b64ce66e948166e71e7d9c0ab5fb694daec7730ccb17b3448300e029'
+            ;;
+        *) bail "unrecognized OS type '$(uname -s)'" ;;
     esac
-    # https://github.com/taiki-e/parse-changelog
-    retry curl --proto '=https' --tlsv1.2 -fsSL --retry 10 --retry-connrefused "https://github.com/taiki-e/parse-changelog/releases/download/v${parse_changelog_version}/parse-changelog-${parse_changelog_target}.tar.gz" \
-        | "${tar}" xzf -
+    action_dir="${HOME}/.create-gh-release-action"
+    mkdir -p "${action_dir}/bin"
+    (
+        cd "${action_dir}/bin"
+        download_and_checksum "https://github.com/taiki-e/parse-changelog/releases/download/v${parse_changelog_version}/parse-changelog-${parse_changelog_target}.tar.gz" "${parse_changelog_checksum}"
+        tar xzf tmp
+    )
     parse_changelog_options+=("${changelog}" "${version}")
 
     # If allow_missing_changelog is true then default to empty value if version not found
     if [[ "${allow_missing_changelog}" == "true" ]]; then
-        notes=$(./parse-changelog "${parse_changelog_options[@]}" || echo "")
+        notes=$("${action_dir}/bin/parse-changelog${exe}" "${parse_changelog_options[@]}" || echo "")
     else
-        notes=$(./parse-changelog "${parse_changelog_options[@]}")
+        notes=$("${action_dir}/bin/parse-changelog${exe}" "${parse_changelog_options[@]}")
     fi
 
-    rm -f ./parse-changelog
+    rm -rf "${action_dir}"
 fi
 
 # https://cli.github.com/manual/gh_release_view
 if GITHUB_TOKEN="${token}" gh release view "${tag}" &>/dev/null; then
     # https://cli.github.com/manual/gh_release_delete
-    GITHUB_TOKEN="${token}" retry gh release delete "${tag}" -y
+    GITHUB_TOKEN="${token}" gh release delete "${tag}" -y || true
 fi
 
 # https://cli.github.com/manual/gh_release_create

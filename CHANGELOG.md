@@ -14,6 +14,10 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 - Update `parse-changelog` to 0.6.3.
 
+- Verify checksum of downloaded `parse-changelog` tarball.
+
+- Support AArch64 host.
+
 ## [1.7.2] - 2023-09-09
 
 - Improve robustness for temporary network failures.
