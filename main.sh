@@ -129,7 +129,7 @@ if [[ -n "${changelog}" ]]; then
 fi
 
 # https://cli.github.com/manual/gh_release_view
-if GITHUB_TOKEN="${token}" retry gh release view "${tag}" &>/dev/null; then
+if GITHUB_TOKEN="${token}" gh release view "${tag}" &>/dev/null; then
     # https://cli.github.com/manual/gh_release_delete
     GITHUB_TOKEN="${token}" retry gh release delete "${tag}" -y
 fi

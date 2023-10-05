@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Fix performance degradation introduced in 1.7.2.
+
 ## [1.7.2] - 2023-09-09
 
 - Improve robustness for temporary network failures.
