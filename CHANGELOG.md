@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Update `parse-changelog` to 0.6.6.
+
 ## [1.8.0] - 2023-10-05
 
 - Fix performance degradation introduced in 1.7.2.
