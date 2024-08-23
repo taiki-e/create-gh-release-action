@@ -41,7 +41,7 @@ Currently, changelog format and supported tag names have the following rule:
 ### Inputs
 
 | Name      | Required     | Description                                                                 | Type    | Default |
-|-----------|:------------:|-----------------------------------------------------------------------------|---------|---------|
+| --------- |:------------:| --------------------------------------------------------------------------- | ------- | ------- |
 | token     | **true** [^1]| GitHub token for creating GitHub Releases (see [action.yml](action.yml) for more) | String |         |
 | changelog | false        | Path to changelog (variables `$tag`, `$version`, `$prefix`, and any string) | String  |         |
 | allow-missing-changelog | false | Create the release even if the changelog entry corresponding to the version is missing. The default value of the changelog will be an empty string. | Boolean | `false` |
@@ -56,7 +56,7 @@ Currently, changelog format and supported tag names have the following rule:
 ### Outputs
 
 | Name            | Description                                                                                                    |
-|-----------------|----------------------------------------------------------------------------------------------------------------|
+| --------------- | -------------------------------------------------------------------------------------------------------------- |
 | computed-prefix | The computed prefix, including '-' and 'v'.                                                                    |
 | version         | The version number extracted from the tag. The tag name is a concatenation of `computed-prefix` and `version`. |
 
