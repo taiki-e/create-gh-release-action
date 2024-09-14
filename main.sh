@@ -112,30 +112,30 @@ fi
 
 if [[ -n "${changelog}" ]]; then
     # https://github.com/taiki-e/install-action/blob/HEAD/manifests/parse-changelog.json
-    parse_changelog_version="0.6.7"
+    parse_changelog_version='0.6.9'
     exe=''
     case "$(uname -s)" in
         Linux)
             # AArch64 macOS/Windows can run x86_64 binaries, so handles architecture only on Linux.
             case "$(uname -m)" in
                 aarch64 | arm64)
-                    parse_changelog_target="aarch64-unknown-linux-musl"
-                    parse_changelog_checksum='5f9c3f5673f828b9c2ab0dc70e54abfbf2d731b333667de42816352e85e8a184'
+                    parse_changelog_target=aarch64-unknown-linux-musl
+                    parse_changelog_checksum='4b34554144be39cb11a8b1aab0c05c4df7c4dc1bd8d79f263146b8159d0037dc'
                     ;;
                 *)
-                    parse_changelog_target="x86_64-unknown-linux-musl"
-                    parse_changelog_checksum='ca2aa9c8982059327da84bde3bc76df01766d0a2c0e2941fbb88e44d472a3621'
+                    parse_changelog_target=x86_64-unknown-linux-musl
+                    parse_changelog_checksum='354c60eacad40b1eb4419108f2615eaa510d85b74c8c0cac66436fadd2d78f34'
                     ;;
             esac
             ;;
         Darwin)
-            parse_changelog_target="x86_64-apple-darwin"
-            parse_changelog_checksum='825747ef16033b9b5cf73d0d8b349ffd6a6ad32366b29f6d637d84d4ed4685d5'
+            parse_changelog_target=x86_64-apple-darwin
+            parse_changelog_checksum='a257c54537fefda492cafc55d164d432cf08c0d28ed8b3efe094cd909d488ed9'
             ;;
         MINGW* | MSYS* | CYGWIN* | Windows_NT)
-            exe=".exe"
-            parse_changelog_target="x86_64-pc-windows-msvc"
-            parse_changelog_checksum='ce1b92ac2aee88572dc09cf7870ff8f75224a14993af8c2c59063caeaf01f78b'
+            exe=.exe
+            parse_changelog_target=x86_64-pc-windows-msvc
+            parse_changelog_checksum='f4576c79cf86f9c2f7e5fcd9251e5924301337aadd07c49ab5f7273ff994ed99'
             ;;
         *) bail "unrecognized OS type '$(uname -s)'" ;;
     esac
