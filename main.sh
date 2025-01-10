@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: Apache-2.0 OR MIT
-set -eEuo pipefail
+set -CeEuo pipefail
 IFS=$'\n\t'
 
 retry() {
@@ -14,24 +14,24 @@ retry() {
     "$@"
 }
 bail() {
-    echo "::error::$*"
+    printf '::error::%s\n' "$*"
     exit 1
 }
 warn() {
-    echo "::warning::$*"
+    printf '::warning::%s\n' "$*"
 }
 download_and_checksum() {
     local url="${1:?}"
     local checksum="${2:?}"
     retry curl --proto '=https' --tlsv1.2 -fsSL --retry 10 "${url}" -o tmp
-    if type -P sha256sum &>/dev/null; then
+    if type -P sha256sum >/dev/null; then
         sha256sum -c - >/dev/null <<<"${checksum} *tmp"
-    elif type -P shasum &>/dev/null; then
+    elif type -P shasum >/dev/null; then
         # GitHub-hosted macOS runner does not install GNU Coreutils by default.
         # https://github.com/actions/runner-images/issues/90
         shasum -a 256 -c - >/dev/null <<<"${checksum} *tmp"
     else
-        warn "checksum requires 'sha256sum' or 'shasum' command; consider installing one of them; skipped checksum for $(basename "${url}")"
+        warn "checksum requires 'sha256sum' or 'shasum' command; consider installing one of them; skipped checksum for $(basename -- "${url}")"
     fi
 }
 
@@ -77,7 +77,7 @@ fi
 version="${tag}"
 # extract the portion of the tag matching the prefix pattern
 if [[ -n "${prefix}" ]]; then
-    prefix=$(grep <<<"${tag}" -Eo "^${prefix}")
+    prefix=$(grep -Eo "^${prefix}" <<<"${tag}")
     prefix="${prefix%-}"
     version="${tag#"${prefix}"}"
     version="${version#-}"
@@ -110,6 +110,7 @@ if [[ -n "${branch}" ]]; then
     fi
 fi
 
+notes=''
 if [[ -n "${changelog}" ]]; then
     # https://github.com/taiki-e/install-action/blob/HEAD/manifests/parse-changelog.json
     parse_changelog_version='0.6.10'
@@ -140,9 +141,9 @@ if [[ -n "${changelog}" ]]; then
         *) bail "unrecognized OS type '$(uname -s)'" ;;
     esac
     action_dir="${HOME}/.create-gh-release-action"
-    mkdir -p "${action_dir}/bin"
+    mkdir -p -- "${action_dir}/bin"
     (
-        cd "${action_dir}/bin"
+        cd -- "${action_dir}/bin"
         download_and_checksum "https://github.com/taiki-e/parse-changelog/releases/download/v${parse_changelog_version}/parse-changelog-${parse_changelog_target}.tar.gz" "${parse_changelog_checksum}"
         tar xzf tmp
     )
@@ -150,12 +151,12 @@ if [[ -n "${changelog}" ]]; then
 
     # If allow_missing_changelog is true then default to empty value if version not found
     if [[ "${allow_missing_changelog}" == "true" ]]; then
-        notes=$("${action_dir}/bin/parse-changelog${exe}" "${parse_changelog_options[@]}" || echo "")
+        notes=$("${action_dir}/bin/parse-changelog${exe}" "${parse_changelog_options[@]}" || true)
     else
         notes=$("${action_dir}/bin/parse-changelog${exe}" "${parse_changelog_options[@]}")
     fi
 
-    rm -rf "${action_dir}"
+    rm -rf -- "${action_dir}"
 fi
 
 # https://cli.github.com/manual/gh_release_view
@@ -165,16 +166,16 @@ if GITHUB_TOKEN="${token}" gh release view "${tag}" &>/dev/null; then
 fi
 
 # https://cli.github.com/manual/gh_release_create
-GITHUB_TOKEN="${token}" retry gh release create "${release_options[@]}" --title "${title}" --notes "${notes:-}"
+GITHUB_TOKEN="${token}" retry gh release create "${release_options[@]}" --title "${title}" --notes "${notes}"
 
 # Set (computed) prefix and version outputs for future step use.
 computed_prefix=${tag%"${version}"}
 if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
-    echo "computed-prefix=${computed_prefix}" >>"${GITHUB_OUTPUT}"
-    echo "version=${version}" >>"${GITHUB_OUTPUT}"
+    printf 'computed-prefix=%s\n' "${computed_prefix}" >>"${GITHUB_OUTPUT}"
+    printf 'version=%s\n' "${version}" >>"${GITHUB_OUTPUT}"
 else
     # Self-hosted runner may not set GITHUB_OUTPUT.
     warn "GITHUB_OUTPUT is not set; skip setting 'computed-prefix' and 'version' outputs"
-    echo "computed-prefix: ${computed_prefix}"
-    echo "version: ${version}"
+    printf 'computed-prefix: %s\n' "${computed_prefix}"
+    printf 'version: %s\n' "${version}"
 fi
