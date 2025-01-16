@@ -40,16 +40,16 @@ Currently, changelog format and supported tag names have the following rule:
 
 ### Inputs
 
-| Name      | Required     | Description                                                                 | Type    | Default |
-| --------- |:------------:| --------------------------------------------------------------------------- | ------- | ------- |
-| token     | **true** [^1]| GitHub token for creating GitHub Releases (see [action.yml](action.yml) for more) | String |         |
-| changelog | false        | Path to changelog (variables `$tag`, `$version`, `$prefix`, and any string) | String  |         |
-| allow-missing-changelog | false | Create the release even if the changelog entry corresponding to the version is missing. The default value of the changelog will be an empty string. | Boolean | `false` |
-| title     | false        | Format of title (variables `$tag`, `$version`, `$prefix`, and any string)   | String  | `$tag`  |
-| draft     | false        | Create a draft release (`true` or `false`)                                  | Boolean | `false` |
-| branch    | false        | Reject releases from commits not contained in branches that match the specified pattern (regular expression) | String  |         |
-| prefix    | false        | An optional pattern that matches a prefix for the release tag, before the version number (see [action.yml](action.yml) for more) | String |         |
-| ref       | false        | Fully-formed tag ref for this release (see [action.yml](action.yml) for more) | String |         |
+| Name      | Required  | Description                                                                 | Type    | Default |
+| --------- |:---------:| --------------------------------------------------------------------------- | ------- | ------- |
+| token     | **✓** [^1]| GitHub token for creating GitHub Releases (see [action.yml](action.yml) for more) | String |         |
+| changelog |           | Path to changelog (variables `$tag`, `$version`, `$prefix`, and any string) | String  |         |
+| allow-missing-changelog |  | Create the release even if the changelog entry corresponding to the version is missing. The default value of the changelog will be an empty string. | Boolean | `false` |
+| title     |           | Format of title (variables `$tag`, `$version`, `$prefix`, and any string)   | String  | `$tag`  |
+| draft     |           | Create a draft release (`true` or `false`)                                  | Boolean | `false` |
+| branch    |           | Reject releases from commits not contained in branches that match the specified pattern (regular expression) | String  |         |
+| prefix    |           | An optional pattern that matches a prefix for the release tag, before the version number (see [action.yml](action.yml) for more) | String |         |
+| ref       |           | Fully-formed tag ref for this release (see [action.yml](action.yml) for more) | String |         |
 
 [^1]: Required one of `token` input option or `GITHUB_TOKEN` environment variable.
 
