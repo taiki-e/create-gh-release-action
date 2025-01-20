@@ -10,7 +10,7 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
-- [Remove links from the title.](https://github.com/taiki-e/parse-changelog/issues/32)
+- [Remove links from the title if exists.](https://github.com/taiki-e/parse-changelog/issues/32)
 
 - Update `parse-changelog` to 0.6.11.
 
