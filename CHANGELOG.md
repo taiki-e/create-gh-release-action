@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [1.9.0] - 2025-01-20
+
 - [Remove links from the title if exists.](https://github.com/taiki-e/parse-changelog/issues/32)
 
 - Update `parse-changelog` to 0.6.11.
@@ -124,7 +126,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 Initial release
 
-[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.8.3...HEAD
+[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.9.0...HEAD
+[1.9.0]: https://github.com/taiki-e/create-gh-release-action/compare/v1.8.3...v1.9.0
 [1.8.3]: https://github.com/taiki-e/create-gh-release-action/compare/v1.8.2...v1.8.3
 [1.8.2]: https://github.com/taiki-e/create-gh-release-action/compare/v1.8.1...v1.8.2
 [1.8.1]: https://github.com/taiki-e/create-gh-release-action/compare/v1.8.0...v1.8.1
