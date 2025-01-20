@@ -113,7 +113,7 @@ fi
 notes=''
 if [[ -n "${changelog}" ]]; then
   # https://github.com/taiki-e/install-action/blob/HEAD/manifests/parse-changelog.json
-  parse_changelog_version='0.6.10'
+  parse_changelog_version='0.6.11'
   exe=''
   case "$(uname -s)" in
     Linux)
@@ -121,22 +121,22 @@ if [[ -n "${changelog}" ]]; then
       case "$(uname -m)" in
         aarch64 | arm64)
           parse_changelog_target=aarch64-unknown-linux-musl
-          parse_changelog_checksum='1ec4a711a2cc4933861c15eb9c7597588cbb168d194f31a1a5c36baf4e151879'
+          parse_changelog_checksum='a294359f1b1a904a34911fbf482c69ee28924dc8c27f2a1b84b4eb2108b6df3d'
           ;;
         *)
           parse_changelog_target=x86_64-unknown-linux-musl
-          parse_changelog_checksum='9868ce309083557683a9091fcfeaa106d1f08a504f2a9c9c9b9437562a7f4291'
+          parse_changelog_checksum='805c0e86ad53c734973e1f55efc8fb6d82919029fdca4d27f80d590f94688edc'
           ;;
       esac
       ;;
     Darwin)
       parse_changelog_target=x86_64-apple-darwin
-      parse_changelog_checksum='3db852258cf4319a87d84905ce1a31f09890631a806cf8d3a69fc2fab1a1bf9f'
+      parse_changelog_checksum='9176db18ab6adc3bb1d4302eb52c83a9d46319df2b4671fccc4669dd8ce36fc6'
       ;;
     MINGW* | MSYS* | CYGWIN* | Windows_NT)
       exe=.exe
       parse_changelog_target=x86_64-pc-windows-msvc
-      parse_changelog_checksum='2fb33affc3c7d59061ade35372804af1d1c310b8bb3cce09e73646e854e8fc6b'
+      parse_changelog_checksum='299c282946f836b200940f0b4b2c8646e51eff9f3602bd0c2a99b483aa2d4429'
       ;;
     *) bail "unrecognized OS type '$(uname -s)'" ;;
   esac
