@@ -262,7 +262,7 @@ To use this action in self-hosted runners or in containers, at least the followi
 ## Related Projects
 
 - [upload-rust-binary-action]: GitHub Action for building and uploading Rust binary to GitHub Releases.
-- [parse-changelog]: Simple changelog parser, written in Rust. Used in this action.
+- [parse-changelog]: Simple changelog parser, written in Rust. This action uses this tool for changelog parsing.
 - [setup-cross-toolchain-action]: GitHub Action for setup toolchains for cross compilation and cross testing for Rust.
 - [install-action]: GitHub Action for installing development tools (mainly from GitHub Releases).
 - [cache-cargo-install-action]: GitHub Action for `cargo install` with cache.
