@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Update `parse-changelog` to 0.6.12.
+
 ## [1.9.1] - 2025-03-29
 
 - Increase version for workaround Dependabot issue.
