@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [1.9.3] - 2026-03-08
+
 - Avoid triggering [zizmor ref-confusion](https://docs.zizmor.sh/audits/#ref-confusion) when using this action in form of `uses: taiki-e/create-gh-release-action@v1`.
 
 ## [1.9.2] - 2026-01-06
@@ -136,7 +138,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 Initial release
 
-[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.9.2...HEAD
+[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.9.3...HEAD
+[1.9.3]: https://github.com/taiki-e/create-gh-release-action/compare/v1.9.2...v1.9.3
 [1.9.2]: https://github.com/taiki-e/create-gh-release-action/compare/v1.9.1...v1.9.2
 [1.9.1]: https://github.com/taiki-e/create-gh-release-action/compare/v1.8.4...v1.9.1
 [1.8.4]: https://github.com/taiki-e/create-gh-release-action/compare/v1.8.3...v1.8.4
