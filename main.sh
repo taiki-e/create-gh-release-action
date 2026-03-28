@@ -23,7 +23,7 @@ warn() {
 download_and_checksum() {
   local url="${1:?}"
   local checksum="${2:?}"
-  retry curl --proto '=https' --tlsv1.2 -fsSL --retry 10 "${url}" -o tmp
+  retry curl --proto '=https' --tlsv1.2 -fsSL "${url}" -o tmp
   if type -P sha256sum >/dev/null; then
     sha256sum -c - >/dev/null <<<"${checksum} *tmp"
   elif type -P shasum >/dev/null; then
