@@ -15,6 +15,7 @@ GitHub Action for creating GitHub Releases based on changelog.
   - [Example workflow: Reject releases from outside of main branch](#example-workflow-reject-releases-from-outside-of-main-branch)
   - [Other examples](#other-examples)
 - [Supported events](#supported-events)
+- [Security](#security)
 - [Compatibility](#compatibility)
 - [Related Projects](#related-projects)
 - [License](#license)
@@ -246,6 +247,10 @@ For example, to create a release to the `my_tag` tag, specify `ref` input option
 with:
   ref: refs/tags/my_tag
 ```
+
+## Security
+
+The `@v<major>` tags are updated with each release. To enhance workflow stability and security against supply chain attacks, use the `@v<major>.<minor>.<patch>` tag or their hash to pin the version. Since all releases are immutable, pinning the version in either way should have the same effect.
 
 ## Compatibility
 
