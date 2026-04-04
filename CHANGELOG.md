@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [1.10.0] - 2026-04-04
+
 - create-gh-release-action no longer requires `token` input. This action now uses `${{ github.token }}` as the default token, like `actions/checkout` does.
 
 - Documentation improvements.
@@ -142,7 +144,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 Initial release
 
-[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.9.3...HEAD
+[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.10.0...HEAD
+[1.10.0]: https://github.com/taiki-e/create-gh-release-action/compare/v1.9.3...v1.10.0
 [1.9.3]: https://github.com/taiki-e/create-gh-release-action/compare/v1.9.2...v1.9.3
 [1.9.2]: https://github.com/taiki-e/create-gh-release-action/compare/v1.9.1...v1.9.2
 [1.9.1]: https://github.com/taiki-e/create-gh-release-action/compare/v1.8.4...v1.9.1
