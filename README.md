@@ -67,7 +67,7 @@ Currently, changelog format and supported tag names have the following rule:
 name: Release
 
 permissions:
-  contents: write
+  contents: read
 
 on:
   push:
@@ -77,6 +77,8 @@ on:
 jobs:
   create-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # for taiki-e/create-gh-release-action
     steps:
       - uses: actions/checkout@v6
       - uses: taiki-e/create-gh-release-action@v1
@@ -93,7 +95,7 @@ jobs:
 name: Release
 
 permissions:
-  contents: write
+  contents: read
 
 on:
   push:
@@ -103,6 +105,8 @@ on:
 jobs:
   create-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # for taiki-e/create-gh-release-action
     steps:
       - uses: actions/checkout@v6
       - uses: taiki-e/create-gh-release-action@v1
@@ -126,7 +130,7 @@ You can customize the title of the release by `title` option.
 name: Release
 
 permissions:
-  contents: write
+  contents: read
 
 on:
   push:
@@ -136,6 +140,8 @@ on:
 jobs:
   create-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # for taiki-e/create-gh-release-action
     steps:
       - uses: actions/checkout@v6
       - uses: taiki-e/create-gh-release-action@v1
@@ -160,7 +166,7 @@ If the `changelog` option is not specified, the changelog is ignored and only th
 name: Release
 
 permissions:
-  contents: write
+  contents: read
 
 on:
   push:
@@ -170,6 +176,8 @@ on:
 jobs:
   create-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # for taiki-e/create-gh-release-action
     steps:
       - uses: actions/checkout@v6
       - uses: taiki-e/create-gh-release-action@v1
@@ -186,7 +194,7 @@ You can reject releases from commits not contained in branches that match the sp
 name: Release
 
 permissions:
-  contents: write
+  contents: read
 
 on:
   push:
@@ -196,6 +204,8 @@ on:
 jobs:
   create-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # for taiki-e/create-gh-release-action
     steps:
       - uses: actions/checkout@v6
       - uses: taiki-e/create-gh-release-action@v1
