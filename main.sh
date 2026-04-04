@@ -46,7 +46,7 @@ allow_missing_changelog="${INPUT_ALLOW_MISSING_CHANGELOG:-}"
 draft="${INPUT_DRAFT:-}"
 branch="${INPUT_BRANCH:-}"
 prefix="${INPUT_PREFIX:-}"
-token="${INPUT_TOKEN:-"${GITHUB_TOKEN:-}"}"
+token="${INPUT_TOKEN:-"${GITHUB_TOKEN:-"${DEFAULT_GITHUB_TOKEN:-}"}"}"
 ref="${INPUT_REF:-"${GITHUB_REF:-}"}"
 
 if [[ -z "${token}" ]]; then

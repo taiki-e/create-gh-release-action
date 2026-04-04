@@ -47,6 +47,7 @@ inputs:
       GitHub token for creating GitHub Releases.
 
       If not set this option, the GITHUB_TOKEN environment variable will be used.
+      If not set both this option and the GITHUB_TOKEN environment variable, github.token will be used.
     required: false
   ref:
     description: >
@@ -84,3 +85,4 @@ runs:
         INPUT_PREFIX: ${{ inputs.prefix }}
         INPUT_TOKEN: ${{ inputs.token }}
         INPUT_REF: ${{ inputs.ref }}
+        DEFAULT_GITHUB_TOKEN: ${{ github.token }}

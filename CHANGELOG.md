@@ -10,6 +10,10 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- create-gh-release-action no longer requires `token` input. This action now uses `${{ github.token }}` as the default token, like `actions/checkout` does.
+
+- Documentation improvements.
+
 ## [1.9.3] - 2026-03-08
 
 - Avoid triggering [zizmor ref-confusion](https://docs.zizmor.sh/audits/#ref-confusion) when using this action in form of `uses: taiki-e/create-gh-release-action@v1`.
