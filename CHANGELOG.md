@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Improve robustness for network failure.
+
 ## [1.10.0] - 2026-04-04
 
 - create-gh-release-action no longer requires `token` input. This action now uses `${{ github.token }}` as the default token, like `actions/checkout` does.
