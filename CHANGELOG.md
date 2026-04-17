@@ -10,6 +10,12 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Support powerpc64le/riscv64/s390x Linux host.
+
+- Improve support for AArch64 macOS/Windows host.
+
+- Update `parse-changelog` to 0.6.16.
+
 - Improve robustness for network failure.
 
 ## [1.10.0] - 2026-04-04

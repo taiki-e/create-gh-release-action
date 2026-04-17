@@ -114,32 +114,50 @@ fi
 
 notes=''
 if [[ -n "${changelog}" ]]; then
-  # https://github.com/taiki-e/parse-changelog/releases
   # https://github.com/taiki-e/install-action/blob/HEAD/manifests/parse-changelog.json
-  parse_changelog_version='0.6.15'
+  parse_changelog_version='0.6.16'
   exe=''
+  case "$(uname -m)" in
+    aarch64 | arm64) host_arch=aarch64 ;;
+    ppc64le) host_arch=powerpc64le ;;
+    riscv64) host_arch=riscv64 ;;
+    s390x) host_arch=s390x ;;
+    *) host_arch=x86_64 ;;
+  esac
   case "$(uname -s)" in
     Linux)
-      # AArch64 macOS/Windows can run x86_64 binaries, so handles architecture only on Linux.
-      case "$(uname -m)" in
-        aarch64 | arm64)
-          parse_changelog_target=aarch64-unknown-linux-musl
-          parse_changelog_checksum='f8f81e6ceee3b58b143d054d5f33367c38b99626c5522117b805c71a52bb4da3'
+      parse_changelog_target=${host_arch}-unknown-linux-musl
+      case "${host_arch}" in
+        x86_64) parse_changelog_hash='26aa111f36cd2e184aa21d34bd0afef2a879266d90f63534cc2b0481aea4880b' ;;
+        aarch64) parse_changelog_hash='a12bc74533edfc90f5f409d70db9f18e05a99675337b3d28d02390676cd50a59' ;;
+        powerpc64le) parse_changelog_hash='9cc0e07c6a261648960cc52b073211e5607df7b6e0999fd2092878affd1c2b12' ;;
+        riscv64)
+          parse_changelog_target=${host_arch}gc-unknown-linux-musl
+          parse_changelog_hash='eb0856a3c1c2fa0b61123ae036d1ee21765826ef0e4a6951ccc4c7bdfb7e6498'
           ;;
-        *)
-          parse_changelog_target=x86_64-unknown-linux-musl
-          parse_changelog_checksum='178585dc290b9fa7b4c96881e4202f1196b04a7264090c045bb36c138aa7a6a8'
+        s390x)
+          parse_changelog_target=${host_arch}-unknown-linux-gnu
+          parse_changelog_hash='87eddbf1dc1f44316cd313284335eb3725953b98fd8a041807bd77e02f59ef42'
           ;;
+        *) bail "unrecognized host '${parse_changelog_target}'" ;;
       esac
       ;;
     Darwin)
-      parse_changelog_target=x86_64-apple-darwin
-      parse_changelog_checksum='aa98e1199a6912db75b8aa23d6adcccd2fd4cf92e82725236a7c3b12e90539d3'
+      parse_changelog_target=${host_arch}-apple-darwin
+      case "${host_arch}" in
+        x86_64) parse_changelog_hash='41037c04d1d42ce0dc39aa58c0187536977a6debcccf809af4abff63c56b4d85' ;;
+        aarch64) parse_changelog_hash='cefabc34953cadb3499c2a80ecb5d5b3a64995f27c8214595613f737a128ce6f' ;;
+        *) bail "unrecognized host '${parse_changelog_target}'" ;;
+      esac
       ;;
     MINGW* | MSYS* | CYGWIN* | Windows_NT)
       exe=.exe
-      parse_changelog_target=x86_64-pc-windows-msvc
-      parse_changelog_checksum='1f5f17ccf9a601ca3d489850e661bcecee7bd95b24b1d316e93b50ecdbd51cf9'
+      parse_changelog_target=${host_arch}-pc-windows-msvc
+      case "${host_arch}" in
+        x86_64) parse_changelog_hash='5c61e4becf430c24616499df9225c90457f45ad59d4b68a2adc7c57d8de887ba' ;;
+        aarch64) parse_changelog_hash='ed8731a7bf6431d290dbbb2e8bf0b167fcbd2ba9ef45c2a9ea0ed57783086166' ;;
+        *) bail "unrecognized host '${parse_changelog_target}'" ;;
+      esac
       ;;
     *) bail "unrecognized OS type '$(uname -s)'" ;;
   esac
@@ -147,7 +165,7 @@ if [[ -n "${changelog}" ]]; then
   mkdir -p -- "${action_dir}/bin"
   (
     cd -- "${action_dir}/bin"
-    download_and_checksum "https://github.com/taiki-e/parse-changelog/releases/download/v${parse_changelog_version}/parse-changelog-${parse_changelog_target}.tar.gz" "${parse_changelog_checksum}"
+    download_and_checksum "https://github.com/taiki-e/parse-changelog/releases/download/v${parse_changelog_version}/parse-changelog-${parse_changelog_target}.tar.gz" "${parse_changelog_hash}"
     tar xzf tmp
   )
   parse_changelog_options+=("${changelog}" "${version}")
