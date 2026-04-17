@@ -47,6 +47,8 @@ draft="${INPUT_DRAFT:-}"
 branch="${INPUT_BRANCH:-}"
 prefix="${INPUT_PREFIX:-}"
 token="${INPUT_TOKEN:-"${GITHUB_TOKEN:-"${DEFAULT_GITHUB_TOKEN:-}"}"}"
+# This prevents tokens from being exposed to subprocesses via environment variables.
+unset INPUT_TOKEN GITHUB_TOKEN GH_TOKEN DEFAULT_GITHUB_TOKEN
 ref="${INPUT_REF:-"${GITHUB_REF:-}"}"
 
 if [[ -z "${token}" ]]; then
