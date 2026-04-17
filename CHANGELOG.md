@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [1.11.0] - 2026-04-17
+
 - Support powerpc64le/riscv64/s390x Linux host.
 
 - Improve support for AArch64 macOS/Windows host.
@@ -152,7 +154,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 Initial release
 
-[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.10.0...HEAD
+[Unreleased]: https://github.com/taiki-e/create-gh-release-action/compare/v1.11.0...HEAD
+[1.11.0]: https://github.com/taiki-e/create-gh-release-action/compare/v1.10.0...v1.11.0
 [1.10.0]: https://github.com/taiki-e/create-gh-release-action/compare/v1.9.3...v1.10.0
 [1.9.3]: https://github.com/taiki-e/create-gh-release-action/compare/v1.9.2...v1.9.3
 [1.9.2]: https://github.com/taiki-e/create-gh-release-action/compare/v1.9.1...v1.9.2
