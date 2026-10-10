@@ -18,6 +18,6 @@ concurrency:
 
 jobs:
   tidy:
-    uses: taiki-e/github-actions/.github/workflows/tidy.yml@1bb80ca038216cd1fb7b6ca6d76240b3772963ab # main
+    uses: taiki-e/github-actions/.github/workflows/tidy.yml@04a42ca09aaeb9b6c0bce43c23fb9e13eb197d85 # 2026.9.9
     permissions:
       security-events: write # for github/codeql-action/*
