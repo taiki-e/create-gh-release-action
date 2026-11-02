@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Update `parse-changelog` to 0.6.18. This improves compatibility with GFM (GitHub Flavored Markdown) and CommonMark, improves performance, and fixes bugs.
+
 ## [1.11.0] - 2026-04-17
 
 - Support powerpc64le/riscv64/s390x Linux host.

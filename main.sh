@@ -117,7 +117,7 @@ fi
 notes=''
 if [[ -n "${changelog}" ]]; then
   # https://github.com/taiki-e/install-action/blob/HEAD/manifests/parse-changelog.json
-  parse_changelog_version='0.6.16'
+  parse_changelog_version='0.6.18'
   exe=''
   case "$(uname -m)" in
     aarch64 | arm64) host_arch=aarch64 ;;
@@ -130,16 +130,16 @@ if [[ -n "${changelog}" ]]; then
     Linux)
       parse_changelog_target=${host_arch}-unknown-linux-musl
       case "${host_arch}" in
-        x86_64) parse_changelog_hash='26aa111f36cd2e184aa21d34bd0afef2a879266d90f63534cc2b0481aea4880b' ;;
-        aarch64) parse_changelog_hash='a12bc74533edfc90f5f409d70db9f18e05a99675337b3d28d02390676cd50a59' ;;
-        powerpc64le) parse_changelog_hash='9cc0e07c6a261648960cc52b073211e5607df7b6e0999fd2092878affd1c2b12' ;;
+        x86_64) parse_changelog_hash='e0f0aa87a94501111052dbb7f3c79b28b61ab421427641ba9ac4e4ae61d6eee9' ;;
+        aarch64) parse_changelog_hash='ca1e216f84999487a73edff60f4df735584d5b5cae31617ac81450c4b6f2879a' ;;
+        powerpc64le) parse_changelog_hash='bce814051189225b1f3410b3cf75bdf98fd482f831d401b7edb86dbfbb7b28dd' ;;
         riscv64)
           parse_changelog_target=${host_arch}gc-unknown-linux-musl
-          parse_changelog_hash='eb0856a3c1c2fa0b61123ae036d1ee21765826ef0e4a6951ccc4c7bdfb7e6498'
+          parse_changelog_hash='b4dec46f5ed9afc0e66357d669bbfc17a85ac1456047234f20667bcef4687c44'
           ;;
         s390x)
           parse_changelog_target=${host_arch}-unknown-linux-gnu
-          parse_changelog_hash='87eddbf1dc1f44316cd313284335eb3725953b98fd8a041807bd77e02f59ef42'
+          parse_changelog_hash='70e2cf19bb3491a177fe900aca7f7de0e7bbe809162e6430c1165c6413a060bc'
           ;;
         *) bail "unrecognized host '${parse_changelog_target}'" ;;
       esac
@@ -147,8 +147,8 @@ if [[ -n "${changelog}" ]]; then
     Darwin)
       parse_changelog_target=${host_arch}-apple-darwin
       case "${host_arch}" in
-        x86_64) parse_changelog_hash='41037c04d1d42ce0dc39aa58c0187536977a6debcccf809af4abff63c56b4d85' ;;
-        aarch64) parse_changelog_hash='cefabc34953cadb3499c2a80ecb5d5b3a64995f27c8214595613f737a128ce6f' ;;
+        x86_64) parse_changelog_hash='af5b9bf13e26ab93492592fb3d86d591398a7ac921f54f3d0086dae109639d70' ;;
+        aarch64) parse_changelog_hash='56158c595174012c2116562de282bdbc35b4388856007db2aa991cb3a35debb4' ;;
         *) bail "unrecognized host '${parse_changelog_target}'" ;;
       esac
       ;;
@@ -156,8 +156,8 @@ if [[ -n "${changelog}" ]]; then
       exe=.exe
       parse_changelog_target=${host_arch}-pc-windows-msvc
       case "${host_arch}" in
-        x86_64) parse_changelog_hash='5c61e4becf430c24616499df9225c90457f45ad59d4b68a2adc7c57d8de887ba' ;;
-        aarch64) parse_changelog_hash='ed8731a7bf6431d290dbbb2e8bf0b167fcbd2ba9ef45c2a9ea0ed57783086166' ;;
+        x86_64) parse_changelog_hash='f01ef8cd853f27541ca0de36efb45fd61515fdefa61eca789cea1f3684ef4250' ;;
+        aarch64) parse_changelog_hash='fbe3be7fe3b6c66e7dbfb687633bfa9bd31b71d1feedced6b5d9080c56773895' ;;
         *) bail "unrecognized host '${parse_changelog_target}'" ;;
       esac
       ;;
